@@ -21,10 +21,10 @@ export const Post = (props) => {
                 {props.value}
             </p>
             <ButtonToolbar>
-                <ToggleButtonGroup type="radio" name="options" defaultValue={2}>
-                    <ToggleButton value={1}>Positive 🙂</ToggleButton>
-                    <ToggleButton value={2}>Neutral</ToggleButton>
-                    <ToggleButton value={3}>Negative 🙁</ToggleButton>
+                <ToggleButtonGroup type="radio" name="options" onChange={props.onChange}>
+                    <ToggleButton value={"positive"}>Positive 🙂</ToggleButton>
+                    <ToggleButton value={"neutral"}>Neutral</ToggleButton>
+                    <ToggleButton value={"negative"}>Negative 🙁</ToggleButton>
                 </ToggleButtonGroup>
             </ButtonToolbar>
         </Jumbotron>

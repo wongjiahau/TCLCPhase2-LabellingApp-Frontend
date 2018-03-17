@@ -12,6 +12,7 @@ const DEBUGGING = true;
 class App extends Component {
   constructor() {
     super();
+    this.updates = {};
     if(DEBUGGING) {
       console.log("In debugging mode");
       this.state = {
@@ -46,16 +47,34 @@ class App extends Component {
           : this
             .state
             .posts
-            .map((x, index) => <Post key={index} value={x.value}/>)
+            .map((x, index) => <Post key={index} value={x.value} onChange={this.handlePostSemanticValueChange(x._id)}/>)
         }
         <div style={{width: '400px', margin: '0 auto 10px'}}>
-          <Button bsStyle="primary" bsSize="large" block>
+          <Button onClick={this.handleSubmit} bsStyle="primary" bsSize="large" block>
             SUBMIT
           </Button>
         </div>
         <br/>
       </div>
     );
+  }
+
+  handlePostSemanticValueChange = (postId) => (newValue) => {
+    this.updates[postId] = newValue;
+    console.log(this.updates);
+  }
+
+  handleSubmit = () => {
+    request
+      .get('http://35.198.216.245/submitEnglish')
+      .use(nocache) // Prevents caching of *only* this request
+      .send(this.updates)
+      .set('accept', 'json')
+      .end((err, res) => {
+        alert("Uploading data");
+        // Redirect to another page
+      });
+    console.log("Submiting updates");
   }
 }
 

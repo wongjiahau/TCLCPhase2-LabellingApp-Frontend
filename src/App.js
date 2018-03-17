@@ -8,7 +8,7 @@ const nocache = require('superagent-no-cache');
 const request = require('superagent');
 
 
-const DEBUGGING = true;
+const DEBUGGING = false;
 class App extends Component {
   constructor() {
     super();
@@ -34,6 +34,9 @@ class App extends Component {
           this.setState({posts: err});
         }
         this.setState({loading: false, posts: res.body});
+        res.body.forEach((x) => {
+          this.updates[x._id] = 'unassigned';
+        });
       });
 
   }
@@ -66,11 +69,14 @@ class App extends Component {
 
   handleSubmit = () => {
     request
-      .get('http://35.198.216.245/submitEnglish')
-      .use(nocache) // Prevents caching of *only* this request
+      .post('http://35.198.216.245/submitEnglish')
       .send(this.updates)
       .set('accept', 'json')
       .end((err, res) => {
+        if(err) {
+          console.log(err);
+        }
+        console.log(res);
         alert("Uploading data");
         // Redirect to another page
       });

@@ -1,2 +1,3 @@
 #!/bin/bash
+./build.sh
 surge -d tclc-labelling-app.surge.sh -p ./build/

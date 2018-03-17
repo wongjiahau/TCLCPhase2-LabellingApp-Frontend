@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Button from 'react-bootstrap/lib/Button';
 import logo from './logo.svg';
 import './App.css';
 import {Post} from './Post';
@@ -12,7 +13,7 @@ class App extends Component {
   constructor() {
     super();
     if(DEBUGGING) {
-      alert("In debugging mode");
+      console.log("In debugging mode");
       this.state = {
         loading: false,
         posts: testData
@@ -38,22 +39,21 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit
-          <code>src/App.js</code>
-          and save to reload.
-        </p>
+        <h1>Label the semantic value of the following posts.</h1>
+        <br/>
         {this.state.loading
           ? "Loading . . ."
           : this
             .state
             .posts
-            .map((x) => <Post value={x.value}/>)
+            .map((x, index) => <Post key={index} value={x.value}/>)
         }
+        <div style={{width: '400px', margin: '0 auto 10px'}}>
+          <Button bsStyle="primary" bsSize="large" block>
+            SUBMIT
+          </Button>
+        </div>
+        <br/>
       </div>
     );
   }

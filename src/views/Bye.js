@@ -4,6 +4,7 @@ import React from 'react';
 
 export const Bye = () => {
     // TODO: End user session
+    delete window.lastLogin;
     return (
     <Center>
         <PageHeader style={{textAlign:'center', marginTop: '200px'}}>

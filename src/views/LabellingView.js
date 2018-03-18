@@ -5,6 +5,7 @@ import '../App.css';
 import {Post} from '../Post';
 import {testData} from '../testData'; // comment out this line before build
 import {LabellingController} from '../controllers/LabellingController';
+import {ValidateSession} from './ValidateSession';
 
 const DEBUGGING = false;
 export class LabellingView extends Component {
@@ -45,6 +46,7 @@ export class LabellingView extends Component {
     }
     return (
       <div className="LabellingView">
+        <ValidateSession/>
         <h1 style={{marginLeft: '50px', marginTop:'30px'}}>Label the semantic value of the following posts.</h1>
         <br/>
         {this.state.loading

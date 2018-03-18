@@ -7,9 +7,9 @@ import {LabellingController} from '../controllers/LabellingController';
 
 const DEBUGGING = true;
 export class LabellingView extends Component {
-  constructor() {
-    super();
-    this.controller = new LabellingController();
+  constructor(props) {
+    super(props);
+    this.controller = new LabellingController(this.props.language);
     this.updates = {};
     if(DEBUGGING) {
       console.log("In debugging mode");
@@ -23,7 +23,7 @@ export class LabellingView extends Component {
       loading: true,
       posts: null
     };
-    this.controller.getPostsEnglish((err, res) => {
+    this.controller.getPosts((err, res) => {
       if (err) {
           alert(err);
           console.log(err);

@@ -12,7 +12,8 @@ class App extends Component {
           <Route exact path='/' component={() => <Redirect to='/chooseLang'/>}/>
           <Route exact path='/login' component={LabellingView}/>
           <Route exact path='/chooseLang' component={ChooseLanguage}/>
-          <Route exact path='/play' component={LabellingView}/>
+          <Route exact path='/english' component={() => <LabellingView language='English'/>}/>
+          <Route exact path='/chinese' component={() => <LabellingView language='Chinese'/>}/>
           <Route component={() => <h1>404. Page not found.</h1>}/>
         </Switch>
       </BrowserRouter>

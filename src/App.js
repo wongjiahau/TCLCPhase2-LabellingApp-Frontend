@@ -1,18 +1,23 @@
-import React, {Component} from 'react';
-import Button from 'react-bootstrap/lib/Button';
-import logo from './logo.svg';
 import './App.css';
+import React, {Component} from 'react';
 import { LabellingView } from './views/LabellingView';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
-const DEBUGGING = false;
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <LabellingView/>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={() => <Redirect to='/play'/>}/>
+          <Route exact path='/play' component={LabellingView}/>
+          <Route component={() => <h1>404. Page not found.</h1>}/>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
+      // <div className="App">
+      //     <LabellingView/>
+      // </div>
 
 export default App;

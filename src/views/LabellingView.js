@@ -39,7 +39,7 @@ export class LabellingView extends Component {
   render() {
     return (
       <div className="LabellingView">
-        <h1>Label the semantic value of the following posts.</h1>
+        <h1 style={{marginLeft: '50px', marginTop:'30px'}}>Label the semantic value of the following posts.</h1>
         <br/>
         {this.state.loading
           ? "Loading . . ."

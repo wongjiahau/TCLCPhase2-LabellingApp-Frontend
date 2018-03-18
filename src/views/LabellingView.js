@@ -5,7 +5,7 @@ import {Post} from '../Post';
 import {testData} from '../testData'; // comment out this line before build
 import {LabellingController} from '../controllers/LabellingController';
 
-const DEBUGGING = true;
+const DEBUGGING = false;
 export class LabellingView extends Component {
   constructor(props) {
     super(props);

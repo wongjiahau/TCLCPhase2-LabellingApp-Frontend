@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Jumbotron from 'react-bootstrap/lib/Jumbotron';
 import ToggleButton from 'react-bootstrap/lib/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/lib/ToggleButtonGroup';

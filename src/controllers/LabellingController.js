@@ -7,7 +7,6 @@ export class LabellingController {
         this.language = language;
         if(language !== 'English' && language !== 'Chinese') {
             throw new Error(`Expected 'English' or 'Chinese' but you passed in '${language}'`);
-            return;
         }
     }
     getPosts(callback) {
@@ -29,10 +28,9 @@ export class LabellingController {
                     console.log(err);
                 }
                 console.log(res);
-                alert("Uploading data");
                 // Redirect to another page
             });
-        console.log(this.updates);
+        console.log(updates);
         console.log("Submiting updates");
     }
 

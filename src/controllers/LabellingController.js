@@ -2,7 +2,7 @@ const URL = "http://35.198.216.245/";
 const nocache = require('superagent-no-cache');
 const request = require('superagent');
 
-export class AppController {
+export class LabellingController {
     getPostsEnglish(callback) {
         request
             .get(`${URL}getPostsEnglish`)

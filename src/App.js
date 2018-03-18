@@ -1,7 +1,7 @@
 import './App.css';
 import React, {Component} from 'react';
-import { LabellingView } from './views/LabellingView';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import {LabellingView} from './views/LabellingView';
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 
 class App extends Component {
   render() {
@@ -16,8 +16,5 @@ class App extends Component {
     );
   }
 }
-      // <div className="App">
-      //     <LabellingView/>
-      // </div>
 
 export default App;

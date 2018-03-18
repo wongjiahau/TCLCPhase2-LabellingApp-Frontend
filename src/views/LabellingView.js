@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom'
 import Button from 'react-bootstrap/lib/Button';
 import '../App.css';
 import {Post} from '../Post';
@@ -15,12 +16,14 @@ export class LabellingView extends Component {
       console.log("In debugging mode");
       this.state = {
         loading: false,
+        done: false,
         posts: testData
       }
       return;
     }
     this.state = {
       loading: true,
+      done: false,
       posts: null
     };
     this.controller.getPosts((err, res) => {
@@ -37,6 +40,9 @@ export class LabellingView extends Component {
     });
   }
   render() {
+    if(this.state.done) {
+      return <Redirect to='/con'/>
+    }
     return (
       <div className="LabellingView">
         <h1 style={{marginLeft: '50px', marginTop:'30px'}}>Label the semantic value of the following posts.</h1>
@@ -64,7 +70,15 @@ export class LabellingView extends Component {
   }
 
   handleSubmit = () => {
-    this.controller.submit(this.updates);
+    this.controller.submit(this.updates, (err, res) => {
+      if(err) {
+        alert("ERROR: " + err);
+        return;
+      }
+      alert("Your work have been submitted to the database.");
+      console.log(JSON.stringify(res.text));
+      this.setState({done: true});
+    });
   }
 }
 

@@ -18,17 +18,13 @@ export class LabellingController {
             });
     }
 
-    submit(updates) {
+    submit(updates, callback) {
         request
             .post(`${URL}submit${this.language}`)
             .send(updates)
             .set('accept', 'json')
             .end((err, res) => {
-                if (err) {
-                    console.log(err);
-                }
-                console.log(res);
-                // Redirect to another page
+                callback(err, res);
             });
         console.log(updates);
         console.log("Submiting updates");

@@ -4,14 +4,13 @@ import logo from './logo.svg';
 import './App.css';
 import {Post} from './Post';
 import {testData} from './testData'; // comment out this line before build
-const nocache = require('superagent-no-cache');
-const request = require('superagent');
-
+import {AppController} from './controllers/AppController';
 
 const DEBUGGING = false;
 class App extends Component {
   constructor() {
     super();
+    this.controller = new AppController();
     this.updates = {};
     if(DEBUGGING) {
       console.log("In debugging mode");
@@ -25,20 +24,18 @@ class App extends Component {
       loading: true,
       posts: null
     };
-    request
-      .get('http://35.198.216.245/getPostsEnglish')
-      .use(nocache) // Prevents caching of *only* this request
-      .end((err, res) => {
-        console.log(err);
-        if (err) {
+    this.controller.getPostsEnglish((err, res) => {
+      if (err) {
+          alert(err);
+          console.log(err);
           this.setState({posts: err});
+          return;
         }
         this.setState({loading: false, posts: res.body});
         res.body.forEach((x) => {
           this.updates[x._id] = 'unassigned';
         });
-      });
-
+    });
   }
   render() {
     return (
@@ -68,19 +65,7 @@ class App extends Component {
   }
 
   handleSubmit = () => {
-    request
-      .post('http://35.198.216.245/submitEnglish')
-      .send(this.updates)
-      .set('accept', 'json')
-      .end((err, res) => {
-        if(err) {
-          console.log(err);
-        }
-        console.log(res);
-        alert("Uploading data");
-        // Redirect to another page
-      });
-    console.log("Submiting updates");
+    this.controller.submit(this.updates);
   }
 }
 

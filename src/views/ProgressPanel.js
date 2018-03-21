@@ -24,13 +24,17 @@ export class ProgressPanel extends Component {
         super(props);
         this.state = {
             loading: true,
-            data: sampleData
+            data: sampleData,
+            numberOfPostLabelledToday: null
         }
         this.controller = new ProgressController();
         this.controller.getData((err, data) => {
             this.setState({
                 loading: false,
                 data: err ? err : data
+            });
+            this.controller.getNumberOfPostLabelledToday((err, data) => {
+                this.setState({numberOfPostLabelledToday : data});
             });
         });
     }
@@ -68,6 +72,13 @@ export class ProgressPanel extends Component {
                         <DiscreteColorLegend orientation="vertical" width={300} items={Object.keys(this.state.data)}/>
                     </Center>
                 )}
+                <div>
+                    <Center>
+                        {this.state.numberOfPostLabelledToday ? 
+                        <h4>{`Number of post labelled today = ${this.state.numberOfPostLabelledToday}`} </h4>
+                            : null}
+                    </Center>
+                </div>
             </div>
 
         )

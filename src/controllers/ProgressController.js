@@ -20,6 +20,15 @@ export class ProgressController extends Controller {
                     });
             });
     }
+
+    getNumberOfPostLabelledToday(callback) {
+        this.request
+            .get(`${this.url}fetchNumberOfPostLabelledToday`)
+            .use(this.nocache)
+            .end((err, res) => {
+                callback(err, res.body);
+            });
+    }
 }
 
 export function transformProgressData(data) {

@@ -1,4 +1,5 @@
 import Center from 'react-center';
+import Button from 'react-bootstrap/lib/Button';
 import PageHeader from 'react-bootstrap/lib/PageHeader';
 import React, {Component} from 'react';
 import {ProgressController} from '../controllers/ProgressController';
@@ -27,6 +28,10 @@ export class ProgressPanel extends Component {
             data: sampleData,
             numberOfPostLabelledToday: null
         }
+        this.requestData();
+    }
+    requestData = () => {
+        this.setState({loading: true});
         this.controller = new ProgressController();
         this.controller.getData((err, data) => {
             this.setState({
@@ -58,25 +63,31 @@ export class ProgressPanel extends Component {
                         <br/>
                     </Center>
                 </div>
+                <Center>
                 {this.state.loading
                     ? "Loading . . . "
                     : (
-                    <Center>
-                        <XYPlot xType='ordinal' xDistance={100} width={600} height={300}>
-                            <HorizontalGridLines/>
-                            <VerticalGridLines/>
-                            <XAxis/>
-                            <YAxis/>
-                            {bars}
-                        </XYPlot>
-                        <DiscreteColorLegend orientation="vertical" width={300} items={Object.keys(this.state.data)}/>
-                    </Center>
-                )}
+                        <Center>
+                            <XYPlot xType='ordinal' xDistance={100} width={600} height={300}>
+                                <HorizontalGridLines/>
+                                <VerticalGridLines/>
+                                <XAxis/>
+                                <YAxis/>
+                                {bars}
+                            </XYPlot>
+                            <DiscreteColorLegend orientation="vertical" width={300} items={Object.keys(this.state.data)}/>
+                        </Center>
+                    )}
+                </Center>
                 <div>
                     <Center>
-                        {this.state.numberOfPostLabelledToday ? 
-                        <h4>{`Number of post labelled today = ${this.state.numberOfPostLabelledToday}`} </h4>
+                        {this.state.numberOfPostLabelledToday && !this.state.loading? 
+                        <h4>{`Number of post labelled today = ${this.state.numberOfPostLabelledToday} `} </h4>
                             : null}
+                    </Center>
+                    <br/>
+                    <Center>
+                        <Button bsStyle='primary' onClick={() => this.requestData()}>Refresh</Button>
                     </Center>
                 </div>
             </div>

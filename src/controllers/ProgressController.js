@@ -8,15 +8,22 @@ export class ProgressController extends Controller {
 
     getData(callback) {
         this.request
-            .get(`${this.url}fetchAdminData${this.language}`)
+            .get(`${this.url}fetchAdminDataEnglish`)
             .use(this.nocache) // Prevents caching of *only* this request
-            .end((err, res) => {
-                callback(err, res);
+            .end((err1, res1) => {
+                this.request
+                    .get(`${this.url}fetchAdminDataChinese`)
+                    .use(this.nocache) // Prevents caching of *only* this request
+                    .end((err2, res2) => {
+                        console.log(res1);
+                        callback(err2,  transformProgressData(res1.body.concat(res2.body)));
+                    });
             });
     }
 }
 
 export function transformProgressData(data) {
+    console.log(data);
     const result = {
         positive:   [],
         neutral:    [],

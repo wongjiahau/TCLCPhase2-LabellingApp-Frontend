@@ -26,23 +26,19 @@ export class ProgressPanel extends Component {
             loading: true,
             data: sampleData
         }
-        this.controller = new ProgressController('English');
-        return;
-        this
-            .controller
-            .getData((err, data) => {
-                this.setState({
-                    loading: false,
-                    data: err
-                        ? err
-                        : data.body
-                });
+        this.controller = new ProgressController();
+        this.controller.getData((err, data) => {
+            this.setState({
+                loading: false,
+                data: err ? err : data
             });
+        });
     }
     render() {
         const BarSeries = VerticalBarSeries;
         const bars = [];
         const data = this.state.data;
+        delete data.unassigned; // Because the amount of unassigned posts is too large
         for(var key in data) {
             if(data.hasOwnProperty(key)) {
                 bars.push(<BarSeries data={data[key]}/>)
@@ -57,20 +53,21 @@ export class ProgressPanel extends Component {
                         </PageHeader>
                         <br/>
                     </Center>
-                    {this.state.loading
-                        ? "Loading . . . "
-                        : JSON.stringify(this.state.data)}
                 </div>
-                <Center>
-                    <XYPlot xType='ordinal' xDistance={100} width={300} height={300}>
-                        <HorizontalGridLines/>
-                        <VerticalGridLines/>
-                        <XAxis/>
-                        <YAxis/>
-                        {bars}
-                    </XYPlot>
-                    <DiscreteColorLegend orientation="vertical" width={300} items={Object.keys(this.state.data)}/>
-                </Center>
+                {this.state.loading
+                    ? "Loading . . . "
+                    : (
+                    <Center>
+                        <XYPlot xType='ordinal' xDistance={100} width={600} height={300}>
+                            <HorizontalGridLines/>
+                            <VerticalGridLines/>
+                            <XAxis/>
+                            <YAxis/>
+                            {bars}
+                        </XYPlot>
+                        <DiscreteColorLegend orientation="vertical" width={300} items={Object.keys(this.state.data)}/>
+                    </Center>
+                )}
             </div>
 
         )

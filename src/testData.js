@@ -1,1 +1,231 @@
-export const testData = [{"_id":"5aacf178c52f184931f3858f","date":"20170709","value":"{bigjoe}{10 july 2017}{6:17 pm} najib is blaming mahathir for anything he can lay your hands on, all of which he had a hands to cover up even partake in it’s making like mas.","origin":"scrape-results/blog/limkitsiang_20170801_154615.csv","source":"blog","related_to":["mahathir","najib"],"semantic_value":"unassigned"},{"_id":"5aacf178c52f184931f38590","date":"20170709","value":"{good coolie}{13 july 2017}{11:27 pm} orang kaya=22-carat diamond necklace (pink panther); orang miskin=rm22 karat iron-necklace. ini kan biasa, saudara lim! we should be proud our great leader can afford to buy pink panther (indonesia punya djokowi mana mampu beli pink panther). don’t be jealous of ah mo1.","origin":"scrape-results/blog/limkitsiang_20170801_154615.csv","source":"blog","related_to":["najib"],"semantic_value":"unassigned"},{"_id":"5aacf178c52f184931f38591","date":"20170709","value":"dap is not afraid of holding cec elections but only umno’s perversity and capriciousness to use ros to sabotage the dap preparations for the 14ge for a change of federal government in putrajaya","origin":"scrape-results/blog/limkitsiang_20170801_154615.csv","source":"blog","related_to":["umno","dap"],"semantic_value":"unassigned"},{"_id":"5aacf178c52f184931f38592","date":"20170709","value":"{bigjoe}{9 july 2017}{4:04 pm} either they are trying to use the following of ros instruction to trumpet dap admission of wrong doing or they have set it up such that the can disqualify or attack using the new election.","origin":"scrape-results/blog/limkitsiang_20170801_154615.csv","source":"blog","related_to":["dap","najib"],"semantic_value":"unassigned"},{"_id":"5aacf178c52f184931f38593","date":"20170709","value":"{ezraanne ezra}{9 july 2017}{5:30 pm} umno bn are perverts who will just rape as they please, use back door, and at same time such pussies behaving like whores so long they get what they want how they want. their leaders lie, stab people in the back, scare rakyat, pin rakyat, create chaos. they will do whatever it takes to still grip to power. they will use every little wicked trick to force dap out of the picture. they are so dead afraid of the people’s power in the dap. to them rid dap they rid pakatan harapan.","origin":"scrape-results/blog/limkitsiang_20170801_154615.csv","source":"blog","related_to":["umno","bn","pakatan harapan","dap","najib"],"semantic_value":"unassigned"},{"_id":"5aacf178c52f184931f38594","date":"20170709","value":"{ezraanne ezra}{9 july 2017}{7:11 pm} believe me, they will create ‘pengganas’ to ultimately create the exigency situation emergency state and hey presto they will freeze and paralyse the country and all who are against them. indefinitely, under the power of pm, even when the two bulls (defence aka special powers minister, dpm aka home minister) are silently heads against horns with each other.","origin":"scrape-results/blog/limkitsiang_20170801_154615.csv","source":"blog","related_to":["najib"],"semantic_value":"unassigned"},{"_id":"5aacf178c52f184931f38595","date":"20170709","value":"{bigjoe}{9 july 2017}{8:44 pm} they just announced electricity tariff increase in january – election will be nov, early dec before the rain.","origin":"scrape-results/blog/limkitsiang_20170801_154615.csv","source":"blog","related_to":["najib"],"semantic_value":"unassigned"},{"_id":"5aacf178c52f184931f38596","date":"20170709","value":"{bigjoe}{9 july 2017}{4:45 am} why is umno lawyer have such privilleges information on appt of cj that now raises urgency of criminality of 9m payment from 1mdb money?","origin":"scrape-results/blog/limkitsiang_20170801_154615.csv","source":"blog","related_to":["umno"],"semantic_value":"unassigned"},{"_id":"5aacf178c52f184931f38597","date":"20170708","value":"{bruno}{8 july 2017}{8:55 pm} only a chubby stupid fool would flaunt his ill gotten wealth so publicly.if only this stupid fool could remain silent as a church mouse,this mother of all financial scandals might be outed five years or more later or even never.","origin":"scrape-results/blog/limkitsiang_20170801_154615.csv","source":"blog","related_to":["najib"],"semantic_value":"unassigned"},{"_id":"5aacf178c52f184931f38598","date":"20170708","value":"{undertaker888}{9 july 2017}{5:59 pm} fatman of manchester is pretty much silent on this while harping on lge”s bungalow. mo1″s stepson owns multi-million dollar property in us, the fatman is also pretty much quiet. all these ill gotten wealth is mountainful compared to lge”s mole hill.","origin":"scrape-results/blog/limkitsiang_20170801_154615.csv","source":"blog","related_to":["najib"],"semantic_value":"unassigned"}]
+export const testData = [
+    {
+        "date": "20170723",
+        "value": "mahathir's cronies vs najib's cronies",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib",
+            "mahathir"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p0"
+    },
+    {
+        "date": "20170723",
+        "value": "  jho low, the 'unofficial' consultant of 1mdb, a friend of najib's stepson",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "1mdb",
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p1"
+    },
+    {
+        "date": "20170723",
+        "value": "  salam dato rocky",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": "\"then please give me the name of one malaysian individual who deserves or qualifies to be called a crony of najib razak",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": "\"answer: razak baginda, deepak carpet and jho low",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": " to name the prominent few",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": "at least, with dr",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": "m's cronies such as ytl, ananda krishnan, syed mohktar bukhary",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": " hundreds of thousand rakyat could earn a living and raise families, working for them",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": " the gomen too could collect taxes in form of employees remuneration, corporate taxes and the wealth of dr",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": "m's cronies",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": " eternally, as long as their companies is doing well",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": "however, with najib's cronies (razak baginda, deepak carpet and jho low)",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": " what does the rakyat and gomen, get in return",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": " lick their dick",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p2"
+    },
+    {
+        "date": "20170723",
+        "value": "  the dedak has really damage you brain en rocky (pun intended for your datukship is illegitimate)",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib",
+            "rosmah"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p3"
+    },
+    {
+        "date": "20170723",
+        "value": " najib only enrich himself, rosmah, his family and his advisor such as jho lo, farid ridzuan, habibur rahman and few other major dedakians",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib",
+            "rosmah"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p3"
+    },
+    {
+        "date": "20170723",
+        "value": "cant believe you didnt know that but dedak will do that to people",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "najib",
+            "rosmah"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p3"
+    },
+    {
+        "date": "20170723",
+        "value": "  salam rd,the last line is not you, if i may just say",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "1mdb",
+            "najib",
+            "mahathir"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p4"
+    },
+    {
+        "date": "20170723",
+        "value": " :-=)i knew jho lo's name would come u, though",
+        "origin": "scrape-results/blog/rockybru_20170801_160034.csv",
+        "source": "blog",
+        "related_to": [
+            "1mdb",
+            "najib",
+            "mahathir"
+        ],
+        "semantic_value": "unassigned",
+        "belongs_to": "p4"
+    }
+]

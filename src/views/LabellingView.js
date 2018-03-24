@@ -6,8 +6,10 @@ import {Post} from '../Post';
 import {testData} from '../testData'; // comment out this line before build
 import {LabellingController} from '../controllers/LabellingController';
 import {ValidateSession} from './ValidateSession';
+import uniq from 'lodash.uniq';
+import randomColor from 'randomcolor';
 
-const DEBUGGING = false;
+const DEBUGGING = true;
 export class LabellingView extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +17,7 @@ export class LabellingView extends Component {
     this.updates = {};
     if(DEBUGGING) {
       console.log("In debugging mode");
+      this.generateColorScheme(testData);
       this.state = {
         loading: false,
         done: false,
@@ -34,12 +37,26 @@ export class LabellingView extends Component {
           this.setState({posts: err});
           return;
         }
-        this.setState({loading: false, posts: res.body});
-        res.body.forEach((x) => {
+        const posts = res.body;
+        this.generateColorScheme(posts);
+        this.setState({loading: false, posts: posts});
+        posts.forEach((x) => {
           this.updates[x._id] = 'unassigned';
         });
     });
   }
+
+  generateColorScheme = (posts) => {
+    const postIds = uniq(posts.map((p) => p.belongs_to));
+    const colorScheme = {};
+    postIds.forEach((id) => {
+      if(!colorScheme[id]) {
+        colorScheme[id] = randomColor({luminosity: "light"});
+      }
+    });
+    this.colorScheme = colorScheme;
+  }
+
   render() {
     if(this.state.done) {
       return <Redirect to='/con'/>
@@ -54,7 +71,10 @@ export class LabellingView extends Component {
           : this
             .state
             .posts
-            .map((x, index) => <Post key={index} value={x.value} onChange={this.handlePostSemanticValueChange(x._id)}/>)
+            .map((x, index) => <Post
+                 key={index} value={x.value} color={this.colorScheme[x.belongs_to]}
+                 onChange={this.handlePostSemanticValueChange(x._id)}
+                 />)
         }
         <div style={{width: '400px', margin: '0 auto 10px'}}>
           <Button onClick={this.handleSubmit} bsStyle="primary" bsSize="large" block>

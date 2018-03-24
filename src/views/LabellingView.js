@@ -51,7 +51,7 @@ export class LabellingView extends Component {
     const colorScheme = {};
     postIds.forEach((id) => {
       if(!colorScheme[id]) {
-        colorScheme[id] = randomColor({luminosity: "light"});
+        colorScheme[id] = randomColor({luminosity: "random"});
       }
     });
     this.colorScheme = colorScheme;
@@ -63,7 +63,7 @@ export class LabellingView extends Component {
     }
     return (
       <div className="LabellingView">
-        <ValidateSession/>
+        {/* <ValidateSession/> */}
         <h1 style={{marginLeft: '50px', marginTop:'30px'}}>Label the semantic value of the following posts.</h1>
         <br/>
         {this.state.loading

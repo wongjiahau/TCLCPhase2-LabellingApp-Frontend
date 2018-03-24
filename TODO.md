@@ -8,6 +8,8 @@
 
 4-[X]-d) Look at rule 3 in my text classification rules. Your app should be able to support labeling of a single sentence or a group of sentences. For the latter, here is my suggestion:
 
-5-[]-Change the update logic at backend
+5-[]-e) Currently, the posts from English sites also contain Malay, and we need to train these separately. Can you include an additional button/label in addition to the 3 sentiment labels to indicate whether the sentence is in Malay/English.
 
-5-[]-Upload new format of posts to the server
+6-[]-Change the update logic at backend
+
+7-[]-Upload new format of posts to the server

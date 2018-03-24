@@ -51,7 +51,7 @@ export class LabellingView extends Component {
     const colorScheme = {};
     postIds.forEach((id) => {
       if(!colorScheme[id]) {
-        colorScheme[id] = randomColor({luminosity: "random"});
+        colorScheme[id] = randomColor({luminosity: "light"});
       }
     });
     this.colorScheme = colorScheme;
@@ -61,6 +61,7 @@ export class LabellingView extends Component {
     if(this.state.done) {
       return <Redirect to='/con'/>
     }
+    const posts = this.state.posts;
     return (
       <div className="LabellingView">
         {/* <ValidateSession/> */}
@@ -68,13 +69,12 @@ export class LabellingView extends Component {
         <br/>
         {this.state.loading
           ? "Loading . . ."
-          : this
-            .state
-            .posts
-            .map((x, index) => <Post
+          : posts.map((x, index) => <Post
                  key={index} value={x.value} color={this.colorScheme[x.belongs_to]}
-                 onChange={this.handlePostSemanticValueChange(x._id)}
-                 />)
+                 renderMergeButton={posts[index - 1] ? (posts[index-1].belongs_to === x.belongs_to) : false}
+                 handleMerge={this.handleMerge(index)}
+                 onChange={this.handlePostSemanticValueChange(index)}
+            />)
         }
         <div style={{width: '400px', margin: '0 auto 10px'}}>
           <Button onClick={this.handleSubmit} bsStyle="primary" bsSize="large" block>
@@ -86,9 +86,15 @@ export class LabellingView extends Component {
     );
   }
 
-  handlePostSemanticValueChange = (postId) => (newValue) => {
-    this.updates[postId] = newValue;
-    console.log(this.updates);
+  handlePostSemanticValueChange = (index) => (newValue) => {
+    this.state.posts[index].semantic_value = newValue;
+  }
+
+  handleMerge = (index) => () => {
+    const posts = this.state.posts;
+    posts[index - 1].value = posts[index - 1].value + " " + posts[index].value;
+    posts.splice(index, 1); // splice means remove
+    this.setState({posts: posts});
   }
 
   handleSubmit = () => {

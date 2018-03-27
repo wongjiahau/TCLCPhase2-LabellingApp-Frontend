@@ -1,49 +1,50 @@
-import React, {Component} from 'react';
-import Button from 'react-bootstrap/lib/Button';
-import Jumbotron from 'react-bootstrap/lib/Jumbotron';
-import ToggleButton from 'react-bootstrap/lib/ToggleButton';
-import ToggleButtonGroup from 'react-bootstrap/lib/ToggleButtonGroup';
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
-export class Post extends Component {
-    colorScheme = {
-        'neutral': 'lightgreen',
-        'positive': 'lightblue',
-        'negative': 'lightpink'
+import * as React from "react";
+import Button from "react-bootstrap/lib/Button";
+import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
+import Jumbotron from "react-bootstrap/lib/Jumbotron";
+import ToggleButton from "react-bootstrap/lib/ToggleButton";
+import ToggleButtonGroup from "react-bootstrap/lib/ToggleButtonGroup";
+
+export class Post extends React.Component {
+    public colorScheme = {
+        negative: "lightpink",
+        neutral: "lightgreen",
+        positive: "lightblue",
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            backgroundColor: '',
-            focus: false
-        }
+            backgroundColor: "",
+            focus: false,
+        };
     }
 
-    handleOnChange = (value) => {
+    public handleOnChange = (value) => {
         this.setState({backgroundColor: this.colorScheme[value]});
         this
             .props
             .onChange(value);
     }
 
-    render() {
+    public render() {
         const divStyle = {
-            margin: '10px',
+            margin: "10px",
             border: this.state.focus ? "5px" : "3px",
             borderColor: this.state.focus ? "cyan" : "white",
             borderStyle: "solid",
-            position: "relative"
+            position: "relative",
         };
         const jumbotronStyle = {
-            padding: '10px 10px 10px 10px',
-            marginBottom: '0px',
-            backgroundColor: this.state.backgroundColor
+            padding: "10px 10px 10px 10px",
+            marginBottom: "0px",
+            backgroundColor: this.state.backgroundColor,
         };
         const mergeButtonStyle = {
             position: "absolute",
             bottom: "10px",
-            right: '10px'
+            right: "10px",
         };
 
         return (
@@ -67,7 +68,7 @@ export class Post extends Component {
                         : null}
                 </Jumbotron>
             </div>
-        )
+        );
 
     }
 

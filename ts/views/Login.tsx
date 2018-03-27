@@ -1,29 +1,29 @@
-import React, {Component} from 'react';
-import Center from 'react-center';
-import Button from 'react-bootstrap/lib/Button';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import PageHeader from 'react-bootstrap/lib/PageHeader';
-import {Redirect} from 'react-router-dom'
-import shajs from 'sha.js';
+import * as React from "react";
+import Button from "react-bootstrap/lib/Button";
+import FormControl from "react-bootstrap/lib/FormControl";
+import PageHeader from "react-bootstrap/lib/PageHeader";
+import Center from "react-center";
+import {Redirect} from "react-router-dom";
+import shajs from "sha.js";
 
-export class Login extends Component {
+export class Login extends React.Component {
     constructor(props) {
-        
+
         super(props);
         this.state = {
-            id: '',
-            password: '',
-            done: false
+            id: "",
+            password: "",
+            done: false,
         };
     }
 
-    render() {
-        if(this.state.done) {
-            return <Redirect to='chooseLang'/>
+    public render() {
+        if (this.state.done) {
+            return <Redirect to="chooseLang"/>;
         }
         return (
             <Center>
-                <div style={{marginTop: '100px'}}>
+                <div style={{marginTop: "100px"}}>
                     <PageHeader>Login to TCLC project</PageHeader>
                     <FormControl
                         type="text"
@@ -44,22 +44,22 @@ export class Login extends Component {
         );
     }
 
-    handleIdChange = (e) => {
+    public handleIdChange = (e) => {
         this.setState({id: e.target.value});
     }
 
-    handlePasswordChange = (e) => {
+    public handlePasswordChange = (e) => {
         this.setState({password: e.target.value});
     }
 
-    handleClick = () => {
+    public handleClick = () => {
         const correctHash = "70fd1f8ede7226d7cae3a9478abe9e77bc6cea2638905cc48196b5021818cb87";
-        const inputHash = (new shajs.sha256().update(this.state.id + this.state.password).digest('hex'));
-        if(inputHash === correctHash) {
+        const inputHash = (new shajs.sha256().update(this.state.id + this.state.password).digest("hex"));
+        if (inputHash === correctHash) {
             window.lastLogin = (new Date()).getTime();
             this.setState({done: true});
         } else {
-            alert("Login failed. Wrong ID or wrong password.")
+            alert("Login failed. Wrong ID or wrong password.");
         }
     }
 

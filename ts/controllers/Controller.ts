@@ -1,8 +1,12 @@
+import * as request from "superagent";
+import * as nocache from "superagent-no-cache";
 export class Controller {
-    private url: string;
+    protected nocache: any;
+    protected request: any;
+    protected url: string;
     constructor() {
         this.url = "http://35.198.216.245/";
-        this.nocache = require('superagent-no-cache');
-        this.request = require('superagent');
+        this.nocache = nocache;
+        this.request = request;
     }
 }

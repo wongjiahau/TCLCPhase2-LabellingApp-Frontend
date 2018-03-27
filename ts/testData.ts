@@ -1,7 +1,7 @@
 import { IPost } from "./model/post";
 export const testData: IPost[] = [
     {
-        id:  "1",
+        _id:  "1",
         date: "20170723",
         value: "mahathir's cronies vs najib's cronies",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -14,7 +14,7 @@ export const testData: IPost[] = [
         belongs_to: "p0",
     },
     {
-        id:  "2",
+        _id:  "2",
         date: "20170723",
         value: "  jho low, the 'unofficial' consultant of 1mdb, a friend of najib's stepson",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -27,7 +27,7 @@ export const testData: IPost[] = [
         belongs_to: "p1",
     },
     {
-        id:  "3",
+        _id:  "3",
         date: "20170723",
         value: "  salam dato rocky",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -39,7 +39,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "4",
+        _id:  "4",
         date: "20170723",
         value: "\"then please give me the name of one malaysian individual who deserves or qualifies to be called a crony of najib razak",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -51,7 +51,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "5",
+        _id:  "5",
         date: "20170723",
         value: "\"answer: razak baginda, deepak carpet and jho low",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -63,7 +63,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "6",
+        _id:  "6",
         date: "20170723",
         value: " to name the prominent few",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -75,7 +75,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "7",
+        _id:  "7",
         date: "20170723",
         value: "at least, with dr",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -87,7 +87,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "8",
+        _id:  "8",
         date: "20170723",
         value: "m's cronies such as ytl, ananda krishnan, syed mohktar bukhary",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -99,7 +99,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "9",
+        _id:  "9",
         date: "20170723",
         value: " hundreds of thousand rakyat could earn a living and raise families, working for them",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -111,7 +111,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "10",
+        _id:  "10",
         date: "20170723",
         value: " the gomen too could collect taxes in form of employees remuneration, corporate taxes and the wealth of dr",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -123,7 +123,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "11",
+        _id:  "11",
         date: "20170723",
         value: "m's cronies",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -135,7 +135,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "12",
+        _id:  "12",
         date: "20170723",
         value: " eternally, as long as their companies is doing well",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -147,7 +147,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "13",
+        _id:  "13",
         date: "20170723",
         value: "however, with najib's cronies (razak baginda, deepak carpet and jho low)",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -159,7 +159,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "14",
+        _id:  "14",
         date: "20170723",
         value: " what does the rakyat and gomen, get in return",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -171,7 +171,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "15",
+        _id:  "15",
         date: "20170723",
         value: " lick their dick",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -183,7 +183,7 @@ export const testData: IPost[] = [
         belongs_to: "p2",
     },
     {
-        id:  "16",
+        _id:  "16",
         date: "20170723",
         value: "  the dedak has really damage you brain en rocky (pun intended for your datukship is illegitimate)",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -196,7 +196,7 @@ export const testData: IPost[] = [
         belongs_to: "p3",
     },
     {
-        id:  "17",
+        _id:  "17",
         date: "20170723",
         value: " najib only enrich himself, rosmah, his family and his advisor such as jho lo, farid ridzuan, habibur rahman and few other major dedakians",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -209,7 +209,7 @@ export const testData: IPost[] = [
         belongs_to: "p3",
     },
     {
-        id:  "18",
+        _id:  "18",
         date: "20170723",
         value: "cant believe you didnt know that but dedak will do that to people",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -222,7 +222,7 @@ export const testData: IPost[] = [
         belongs_to: "p3",
     },
     {
-        id:  "19",
+        _id:  "19",
         date: "20170723",
         value: "  salam rd,the last line is not you, if i may just say",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",
@@ -236,7 +236,7 @@ export const testData: IPost[] = [
         belongs_to: "p4",
     },
     {
-        id:  "20",
+        _id:  "20",
         date: "20170723",
         value: " :-=)i knew jho lo's name would come u, though",
         origin: "scrape-results/blog/rockybru_20170801_160034.csv",

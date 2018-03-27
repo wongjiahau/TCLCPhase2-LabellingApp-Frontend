@@ -1,66 +1,65 @@
 import uniq from "lodash.uniq";
-import randomColor from "randomcolor";
 import * as React from "react";
 import Button from "react-bootstrap/lib/Button";
 import {Redirect} from "react-router-dom";
-import {LabellingController} from "../controllers/LabellingController";
-import {Post} from "../Post";
+import {ILabellingController, LabellingController, Language} from "../controllers/LabellingController";
+import {MockLabellingController} from "../controllers/MockLabellingController";
+import {ISubmitData} from "../model/submitData";
+import {PostView} from "../PostView";
 import {testData} from "../testData"; // comment out this line before build
+import {CreatePostViewModel, IPostViewModel} from "../viewModel/postViewModel";
 import {ValidateSession} from "./ValidateSession";
 
 const DEBUGGING = true;
-export class LabellingView extends React.Component<{}, {}> {
-  constructor(props) {
+interface ILabellingViewState {
+  loading: boolean;
+  done: boolean;
+  postViewModels: IPostViewModel[];
+}
+
+interface ILabellingViewProps {
+  language: Language;
+}
+
+export class LabellingView extends React.Component<ILabellingViewProps, ILabellingViewState> {
+  private controller: ILabellingController;
+  private submitData: ISubmitData;
+  constructor(props: any) {
     super(props);
-    this.controller = new LabellingController(this.props.language);
-    this.updates = {};
-    if (DEBUGGING) {
-      console.log("In debugging mode");
-      this.generateColorScheme(testData);
-      this.state = {
-        loading: false,
-        done: false,
-        posts: testData,
-      };
-      return;
-    }
+    this.controller =
+      DEBUGGING ?
+      new MockLabellingController() :
+      new LabellingController(this.props.language);
+    this.submitData = {
+      updates: {},
+      merges: [],
+    };
     this.state = {
       loading: true,
       done: false,
-      posts: null,
+      postViewModels: [],
     };
-    this.controller.getPosts((err, res) => {
+    this.controller.getPosts((err, response) => {
       if (err) {
           alert(err);
-          console.log(err);
-          this.setState({posts: err});
           return;
         }
-      const posts = res.body;
-      this.generateColorScheme(posts);
-      this.setState({loading: false, posts});
+      const posts = response;
+      this.setState({
+        loading: false,
+        postViewModels: posts.map((x) => CreatePostViewModel(x)),
+      });
       posts.forEach((x) => {
-          this.updates[x._id] = "unassigned";
-        });
+          this.submitData.updates[x._id] = "unassigned";
+      });
     });
-  }
-
-  public generateColorScheme = (posts) => {
-    const postIds = uniq(posts.map((p) => p.belongs_to));
-    const colorScheme = {};
-    postIds.forEach((id) => {
-      if (!colorScheme[id]) {
-        colorScheme[id] = randomColor({luminosity: "light"});
-      }
-    });
-    this.colorScheme = colorScheme;
   }
 
   public render() {
     if (this.state.done) {
       return <Redirect to="/con"/>;
     }
-    const posts = this.state.posts;
+    const posts = this.state.postViewModels;
     return (
       <div className="LabellingView">
         {/* <ValidateSession/> */}
@@ -68,7 +67,7 @@ export class LabellingView extends React.Component<{}, {}> {
         <br/>
         {this.state.loading
           ? "Loading . . ."
-          : posts.map((x, index) => <Post
+          : posts.map((x, index) => <PostView
                  key={index} value={x.value} color={this.colorScheme[x.belongs_to]}
                  renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
                  handleMerge={this.handleMerge(index)}

@@ -1,32 +1,40 @@
-import { Controller } from './Controller';
+import { ISubmitData, IUpdate } from "../model/submitData";
+import { IPost } from "./../model/post";
+import { Controller } from "./Controller";
 
+export interface ILabellingController {
+    getPosts(callback: (error: any, response: IPost[]) => void) : void;
+    submit(submitData: ISubmitData,  callback: (error: any, response: any) => void) : void;
+}
 
-export class LabellingController extends Controller {
-    constructor(language){
+export type Language = "English" | "Chinese";
+export class LabellingController extends Controller implements ILabellingController {
+    private language: Language;
+    constructor(language: Language) {
         super();
         this.language = language;
-        if(language !== 'English' && language !== 'Chinese') {
+        if (language !== "English" && language !== "Chinese") {
             throw new Error(`Expected 'English' or 'Chinese' but you passed in '${language}'`);
         }
     }
-    getPosts(callback) {
+    public getPosts(callback : (error: any, response: IPost[]) => void) {
         this.request
             .get(`${this.url}getPosts${this.language}`)
             .use(this.nocache) // Prevents caching of *only* this request
-            .end((err, res) => {
+            .end((err: any, res: any) => {
                 callback(err, res);
             });
     }
 
-    submit(updates, callback) {
+    public submit(submitData: ISubmitData, callback: (error: any, response: any) => void) {
         this.request
             .post(`${this.url}submit${this.language}`)
-            .send(updates)
-            .set('accept', 'json')
-            .end((err, res) => {
+            .send(submitData)
+            .set("accept", "json")
+            .end((err: any, res: any) => {
                 callback(err, res);
             });
-        console.log(updates);
+        console.log(submitData);
         console.log("Submiting updates");
     }
 

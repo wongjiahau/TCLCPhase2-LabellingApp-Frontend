@@ -12,6 +12,7 @@ interface IPostState {
 }
 
 interface IPostProps {
+    id: string;
     focus: boolean;
     value: string;
     renderMergeButton: boolean;
@@ -43,7 +44,7 @@ export class PostView extends React.Component<IPostProps, IPostState> {
             margin: this.props.focus ? "20px 10px" : "10px",
             // border: this.props.focus ? "5px" : "3px",
             // borderColor: this.props.focus ? "grey" : "white",
-            boxShadow: this.props.focus ? "0px 0px 15px gold" : null,
+            boxShadow: this.props.focus ? "0px 0px 20px gold" : null,
             // borderStyle: "solid",
             position: "relative",
         };
@@ -60,7 +61,7 @@ export class PostView extends React.Component<IPostProps, IPostState> {
         };
 
         return (
-            <div style={divStyle}>
+            <div id={this.props.id} style={divStyle}>
                 <Jumbotron style={jumbotronStyle}>
                     <p>
                         {this.props.value}
@@ -82,6 +83,16 @@ export class PostView extends React.Component<IPostProps, IPostState> {
             </div>
         );
 
+    }
+
+    public componentDidUpdate() {
+        if (this.props.focus) {
+            const node = document.getElementById(this.props.id) as HTMLElement;
+            node.scrollIntoView({
+                behavior: "smooth", // or "auto" or "instant"
+                block: "center", // or "end" or "start"
+            });
+        }
     }
 
 }

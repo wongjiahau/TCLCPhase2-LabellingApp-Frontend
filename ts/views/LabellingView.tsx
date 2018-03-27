@@ -93,11 +93,12 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
         {this.state.loading
           ? "Loading . . ."
           : posts.map((x, index) => <PostView
-                 key={index} value={x.value}
-                 focus={x.focus}
-                 renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
-                 handleMerge={this.handleMerge(index)}
-                 handleOnChange={this.handlePostSemanticValueChange(index)}
+                  id={x._id}
+                  key={index} value={x.value}
+                  focus={x.focus}
+                  renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
+                  handleMerge={this.handleMerge(index)}
+                  handleOnChange={this.handlePostSemanticValueChange(index)}
             />)
         }
         <div style={{width: "400px", margin: "0 auto 10px"}}>

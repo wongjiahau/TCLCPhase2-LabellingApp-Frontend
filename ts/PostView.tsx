@@ -41,11 +41,8 @@ export class PostView extends React.Component<IPostProps, IPostState> {
 
     public render() {
         const divStyle : React.CSSProperties = {
-            margin: this.props.focus ? "20px 10px" : "10px",
-            // border: this.props.focus ? "5px" : "3px",
-            // borderColor: this.props.focus ? "grey" : "white",
-            boxShadow: this.props.focus ? "0px 0px 20px gold" : null,
-            // borderStyle: "solid",
+            margin: this.props.focus ? "20px 20px" : "10px",
+            boxShadow: this.props.focus ? "0px 0px 20px black" : null,
             position: "relative",
         };
         const jumbotronStyle = {
@@ -68,9 +65,9 @@ export class PostView extends React.Component<IPostProps, IPostState> {
                     </p>
                     <ButtonToolbar>
                         <ToggleButtonGroup type="radio" name="options" onChange={this.handleOnChange} defaultValue={"unassigned"}>
-                            <ToggleButton value={"negative"}>Negative 🙁</ToggleButton>
-                            <ToggleButton value={"neutral"}>Neutral</ToggleButton>
-                            <ToggleButton value={"positive"}>Positive 🙂</ToggleButton>
+                            <ToggleButton value={"negative"}>(1) Negative 🙁</ToggleButton>
+                            <ToggleButton value={"neutral"}>(2) Neutral</ToggleButton>
+                            <ToggleButton value={"positive"}>(3) Positive 🙂</ToggleButton>
                             <ToggleButton value={"unassigned"} checked={true}>Unknown �</ToggleButton>
                         </ToggleButtonGroup>
                     </ButtonToolbar>

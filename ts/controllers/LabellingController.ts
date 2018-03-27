@@ -1,9 +1,10 @@
-import { ISubmitData, IUpdate } from "../model/submitData";
+import { ISubmitData } from "../model/submitData";
 import { IPost } from "./../model/post";
+import { IRequestData } from "./../model/requestData";
 import { Controller } from "./Controller";
 
 export interface ILabellingController {
-    getPosts(callback: (error: any, response: IPost[]) => void) : void;
+    getPosts(callback: (error: any, response: IRequestData) => void) : void;
     submit(submitData: ISubmitData,  callback: (error: any, response: any) => void) : void;
 }
 
@@ -17,12 +18,12 @@ export class LabellingController extends Controller implements ILabellingControl
             throw new Error(`Expected 'English' or 'Chinese' but you passed in '${language}'`);
         }
     }
-    public getPosts(callback : (error: any, response: IPost[]) => void) {
+    public getPosts(callback : (error: any, response: IRequestData) => void) {
         this.request
             .get(`${this.url}getPosts${this.language}`)
             .use(this.nocache) // Prevents caching of *only* this request
             .end((err: any, res: any) => {
-                callback(err, res);
+                callback(err, res.body);
             });
     }
 

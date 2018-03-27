@@ -18,6 +18,7 @@ const DEBUGGING = true;
 interface ILabellingViewState {
   loading: boolean;
   done: boolean;
+  filename: string;
   postViewModels: IPostViewModel[];
 }
 
@@ -41,6 +42,7 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
     this.state = {
       loading: true,
       done: false,
+      filename: "",
       postViewModels: [],
     };
     this.requestDataFromServer();
@@ -52,13 +54,14 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
           alert(err);
           return;
         }
-      const posts = response;
+      const posts = response.posts;
       posts.forEach((x) => {
           this.submitData.updates[x._id] = "unassigned";
       });
       const postViewModels = posts.map((x) => CreatePostViewModel(x));
       postViewModels[0].focus = true;
       this.setState({
+        filename: response.filename,
         loading: false,
         postViewModels,
       });
@@ -87,6 +90,9 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
     const posts = this.state.postViewModels;
     return (
       <div className="LabellingView">
+        <span style={{position: "absolute", right: "5px", top: "5px"}}>
+          File : {this.state.filename}
+        </span>
         {/* <ValidateSession/> */}
         <h1 style={{marginLeft: "50px", marginTop: "30px"}}>Label the semantic value of the following posts.</h1>
         <br/>

@@ -3,7 +3,7 @@
 ## How to get started?
 ### First, transpile the code
 ```
-tsc --watch
+./transpile
 ```
 
 ### Then, run the development server

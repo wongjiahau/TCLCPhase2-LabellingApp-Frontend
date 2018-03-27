@@ -4,6 +4,10 @@
         "tslint:recommended"
     ],
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        "typedef-whitespace": false,
+        "object-literal-sort-keys": false,
+        "max-line-length": false
+    },
     "rulesDirectory": []
 }

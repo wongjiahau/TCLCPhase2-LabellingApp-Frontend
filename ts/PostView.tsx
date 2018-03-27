@@ -6,14 +6,19 @@ import Jumbotron from "react-bootstrap/lib/Jumbotron";
 import ToggleButton from "react-bootstrap/lib/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/lib/ToggleButtonGroup";
 
-export class Post extends React.Component {
+interface IPostStateProps {
+    focus: boolean;
+
+}
+
+export class PostView extends React.Component<{}, {}> {
     public colorScheme = {
         negative: "lightpink",
         neutral: "lightgreen",
         positive: "lightblue",
     };
 
-    constructor(props) {
+    constructor(props: any) {
         super(props);
         this.state = {
             backgroundColor: "",

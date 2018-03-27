@@ -10,3 +10,16 @@
 ```
 npm run start
 ```
+
+### What is the expected post json format?
+```json
+{
+    updates: [
+        {"id": "1", "semantic_value": "newSemanticValue"}
+    ],
+    merges: [
+        [1,2],
+        [3,4]
+    ]
+}
+```

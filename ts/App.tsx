@@ -1,6 +1,6 @@
 import './App.css';
-import '../node_modules/react-vis/dist/style.css'
-import React, {Component} from 'react';
+import '../../node_modules/react-vis/dist/style.css'
+import * as React from "react";
 import {LabellingView} from './views/LabellingView';
 import {Bye} from './views/Bye';
 import {Login} from './views/Login';
@@ -9,7 +9,7 @@ import {ContinueOrNot} from './views/ContinueOrNot';
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import { ProgressPanel } from './views/ProgressPanel';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <BrowserRouter>

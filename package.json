@@ -23,6 +23,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "@types/react": "^16.0.41",
     "chai": "^4.1.2"
   }
 }

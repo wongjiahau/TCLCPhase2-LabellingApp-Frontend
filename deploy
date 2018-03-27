@@ -1,3 +1,0 @@
-#!/bin/bash
-./build.sh
-surge -d http://tclc-labelling-app.surge.sh -p ./build/

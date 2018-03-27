@@ -15,7 +15,8 @@ export class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            backgroundColor: ''
+            backgroundColor: '',
+            focus: false
         }
     }
 
@@ -29,8 +30,8 @@ export class Post extends Component {
     render() {
         const divStyle = {
             margin: '10px',
-            border: '3px',
-            borderColor: this.props.color,
+            border: this.state.focus ? "5px" : "3px",
+            borderColor: this.state.focus ? "cyan" : "white",
             borderStyle: "solid",
             position: "relative"
         };

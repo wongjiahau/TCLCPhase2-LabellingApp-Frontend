@@ -2,6 +2,8 @@ import uniq from "lodash.uniq";
 import * as React from "react";
 import Button from "react-bootstrap/lib/Button";
 import {Redirect} from "react-router-dom";
+import {focusNext} from "../actions/focusNext";
+import {focusPrev} from "../actions/focusPrev";
 import {ILabellingController, LabellingController, Language} from "../controllers/LabellingController";
 import {MockLabellingController} from "../controllers/MockLabellingController";
 import {ISubmitData, SemanticValue} from "../model/submitData";
@@ -9,6 +11,8 @@ import {PostView} from "../PostView";
 import {testData} from "../testData"; // comment out this line before build
 import {CreatePostViewModel, IPostViewModel} from "../viewModel/postViewModel";
 import {ValidateSession} from "./ValidateSession";
+
+const listener = new window.keypress.Listener();
 
 const DEBUGGING = true;
 interface ILabellingViewState {
@@ -39,6 +43,10 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
       done: false,
       postViewModels: [],
     };
+    this.requestDataFromServer();
+  }
+
+  public requestDataFromServer = () => {
     this.controller.getPosts((err, response) => {
       if (err) {
           alert(err);
@@ -48,9 +56,26 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
       posts.forEach((x) => {
           this.submitData.updates[x._id] = "unassigned";
       });
+      const postViewModels = posts.map((x) => CreatePostViewModel(x));
+      postViewModels[0].focus = true;
       this.setState({
         loading: false,
-        postViewModels: posts.map((x) => CreatePostViewModel(x)),
+        postViewModels,
+      });
+      this.setupKeyBindings();
+    });
+  }
+
+  public setupKeyBindings = () => {
+    listener.simple_combo("down", () => {
+      this.setState({
+        postViewModels: focusNext(this.state.postViewModels),
+      });
+    });
+
+    listener.simple_combo("up", () => {
+      this.setState({
+        postViewModels: focusPrev(this.state.postViewModels),
       });
     });
   }
@@ -69,6 +94,7 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
           ? "Loading . . ."
           : posts.map((x, index) => <PostView
                  key={index} value={x.value}
+                 focus={x.focus}
                  renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
                  handleMerge={this.handleMerge(index)}
                  handleOnChange={this.handlePostSemanticValueChange(index)}
@@ -86,6 +112,8 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
 
   public handlePostSemanticValueChange = (index: number) => (newValue: SemanticValue) => {
     this.state.postViewModels[index].semantic_value = newValue;
+    this.submitData.updates[this.state.postViewModels[index]._id] = newValue;
+    console.log(this.submitData);
   }
 
   public handleMerge = (index: number) => () => {

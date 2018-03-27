@@ -8,11 +8,11 @@ import ToggleButtonGroup from "react-bootstrap/lib/ToggleButtonGroup";
 import { SemanticValue } from "./model/submitData";
 
 interface IPostState {
-    focus: boolean;
     backgroundColor: string;
 }
 
 interface IPostProps {
+    focus: boolean;
     value: string;
     renderMergeButton: boolean;
     handleOnChange(value: SemanticValue): void;
@@ -30,7 +30,6 @@ export class PostView extends React.Component<IPostProps, IPostState> {
         super(props);
         this.state = {
             backgroundColor: "",
-            focus: false,
         };
     }
 
@@ -41,13 +40,15 @@ export class PostView extends React.Component<IPostProps, IPostState> {
 
     public render() {
         const divStyle : React.CSSProperties = {
-            margin: "10px",
-            border: this.state.focus ? "5px" : "3px",
-            borderColor: this.state.focus ? "cyan" : "white",
-            borderStyle: "solid",
+            margin: this.props.focus ? "20px 10px" : "10px",
+            // border: this.props.focus ? "5px" : "3px",
+            // borderColor: this.props.focus ? "grey" : "white",
+            boxShadow: this.props.focus ? "0px 0px 15px gold" : null,
+            // borderStyle: "solid",
             position: "relative",
         };
         const jumbotronStyle = {
+            borderRadius: "5px",
             padding: "10px 10px 10px 10px",
             marginBottom: "0px",
             backgroundColor: this.state.backgroundColor,
@@ -65,11 +66,11 @@ export class PostView extends React.Component<IPostProps, IPostState> {
                         {this.props.value}
                     </p>
                     <ButtonToolbar>
-                        <ToggleButtonGroup type="radio" name="options" onChange={this.handleOnChange}>
-                            <ToggleButton value={"positive"}>Positive 🙂</ToggleButton>
-                            <ToggleButton value={"neutral"}>Neutral</ToggleButton>
+                        <ToggleButtonGroup type="radio" name="options" onChange={this.handleOnChange} defaultValue={"unassigned"}>
                             <ToggleButton value={"negative"}>Negative 🙁</ToggleButton>
-                            <ToggleButton value={"unknown"}>Unknown �</ToggleButton>
+                            <ToggleButton value={"neutral"}>Neutral</ToggleButton>
+                            <ToggleButton value={"positive"}>Positive 🙂</ToggleButton>
+                            <ToggleButton value={"unassigned"} checked={true}>Unknown �</ToggleButton>
                         </ToggleButtonGroup>
                     </ButtonToolbar>
                     {this.props.renderMergeButton

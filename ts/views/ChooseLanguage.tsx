@@ -1,7 +1,7 @@
-import React from 'react';
-import Center from 'react-center';
-import {Link} from 'react-router-dom'
-import {Dialog} from './Dialog';
+import * as React from "react";
+import Center from "react-center";
+import {Link} from "react-router-dom";
+import {Dialog} from "./Dialog";
 
 export const ChooseLanguage = () => (
     <div>
@@ -16,5 +16,5 @@ export const ChooseLanguage = () => (
             <Link to="/progress">See progress</Link>
         </Center>
     </div>
-    
+
 );

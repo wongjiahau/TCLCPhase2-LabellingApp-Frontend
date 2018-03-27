@@ -1,34 +1,33 @@
-import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom'
-import Button from 'react-bootstrap/lib/Button';
-import '../App.css';
-import {Post} from '../Post';
-import {testData} from '../testData'; // comment out this line before build
-import {LabellingController} from '../controllers/LabellingController';
-import {ValidateSession} from './ValidateSession';
-import uniq from 'lodash.uniq';
-import randomColor from 'randomcolor';
+import uniq from "lodash.uniq";
+import randomColor from "randomcolor";
+import * as React from "react";
+import Button from "react-bootstrap/lib/Button";
+import {Redirect} from "react-router-dom";
+import {LabellingController} from "../controllers/LabellingController";
+import {Post} from "../Post";
+import {testData} from "../testData"; // comment out this line before build
+import {ValidateSession} from "./ValidateSession";
 
 const DEBUGGING = true;
-export class LabellingView extends Component {
+export class LabellingView extends React.Component<{}, {}> {
   constructor(props) {
     super(props);
     this.controller = new LabellingController(this.props.language);
     this.updates = {};
-    if(DEBUGGING) {
+    if (DEBUGGING) {
       console.log("In debugging mode");
       this.generateColorScheme(testData);
       this.state = {
         loading: false,
         done: false,
-        posts: testData
-      }
+        posts: testData,
+      };
       return;
     }
     this.state = {
       loading: true,
       done: false,
-      posts: null
+      posts: null,
     };
     this.controller.getPosts((err, res) => {
       if (err) {
@@ -37,46 +36,46 @@ export class LabellingView extends Component {
           this.setState({posts: err});
           return;
         }
-        const posts = res.body;
-        this.generateColorScheme(posts);
-        this.setState({loading: false, posts: posts});
-        posts.forEach((x) => {
-          this.updates[x._id] = 'unassigned';
+      const posts = res.body;
+      this.generateColorScheme(posts);
+      this.setState({loading: false, posts});
+      posts.forEach((x) => {
+          this.updates[x._id] = "unassigned";
         });
     });
   }
 
-  generateColorScheme = (posts) => {
+  public generateColorScheme = (posts) => {
     const postIds = uniq(posts.map((p) => p.belongs_to));
     const colorScheme = {};
     postIds.forEach((id) => {
-      if(!colorScheme[id]) {
+      if (!colorScheme[id]) {
         colorScheme[id] = randomColor({luminosity: "light"});
       }
     });
     this.colorScheme = colorScheme;
   }
 
-  render() {
-    if(this.state.done) {
-      return <Redirect to='/con'/>
+  public render() {
+    if (this.state.done) {
+      return <Redirect to="/con"/>;
     }
     const posts = this.state.posts;
     return (
       <div className="LabellingView">
         {/* <ValidateSession/> */}
-        <h1 style={{marginLeft: '50px', marginTop:'30px'}}>Label the semantic value of the following posts.</h1>
+        <h1 style={{marginLeft: "50px", marginTop: "30px"}}>Label the semantic value of the following posts.</h1>
         <br/>
         {this.state.loading
           ? "Loading . . ."
           : posts.map((x, index) => <Post
                  key={index} value={x.value} color={this.colorScheme[x.belongs_to]}
-                 renderMergeButton={posts[index - 1] ? (posts[index-1].belongs_to === x.belongs_to) : false}
+                 renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
                  handleMerge={this.handleMerge(index)}
                  onChange={this.handlePostSemanticValueChange(index)}
             />)
         }
-        <div style={{width: '400px', margin: '0 auto 10px'}}>
+        <div style={{width: "400px", margin: "0 auto 10px"}}>
           <Button onClick={this.handleSubmit} bsStyle="primary" bsSize="large" block>
             SUBMIT
           </Button>
@@ -86,20 +85,20 @@ export class LabellingView extends Component {
     );
   }
 
-  handlePostSemanticValueChange = (index) => (newValue) => {
+  public handlePostSemanticValueChange = (index) => (newValue) => {
     this.state.posts[index].semantic_value = newValue;
   }
 
-  handleMerge = (index) => () => {
+  public handleMerge = (index) => () => {
     const posts = this.state.posts;
     posts[index - 1].value = posts[index - 1].value + " " + posts[index].value;
     posts.splice(index, 1); // splice means remove
-    this.setState({posts: posts});
+    this.setState({posts});
   }
 
-  handleSubmit = () => {
+  public handleSubmit = () => {
     this.controller.submit(this.updates, (err, res) => {
-      if(err) {
+      if (err) {
         alert("ERROR: " + err);
         return;
       }
@@ -109,4 +108,3 @@ export class LabellingView extends Component {
     });
   }
 }
-

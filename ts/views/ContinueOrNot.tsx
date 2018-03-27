@@ -1,5 +1,5 @@
-import React from 'react';
-import {Dialog} from './Dialog';
+import * as React from "react";
+import {Dialog} from "./Dialog";
 
 export const ContinueOrNot = () => (
     <Dialog
@@ -9,5 +9,4 @@ export const ContinueOrNot = () => (
         word2="No, I want to rest."
         link2="/bye"
     />
-    
 );

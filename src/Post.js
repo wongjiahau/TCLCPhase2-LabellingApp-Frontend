@@ -56,6 +56,7 @@ export class Post extends Component {
                             <ToggleButton value={"positive"}>Positive 🙂</ToggleButton>
                             <ToggleButton value={"neutral"}>Neutral</ToggleButton>
                             <ToggleButton value={"negative"}>Negative 🙁</ToggleButton>
+                            <ToggleButton value={"unknown"}>Unknown �</ToggleButton>
                         </ToggleButtonGroup>
                     </ButtonToolbar>
                     {this.props.renderMergeButton

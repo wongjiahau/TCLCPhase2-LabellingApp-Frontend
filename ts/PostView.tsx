@@ -5,14 +5,22 @@ import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
 import Jumbotron from "react-bootstrap/lib/Jumbotron";
 import ToggleButton from "react-bootstrap/lib/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/lib/ToggleButtonGroup";
+import { SemanticValue } from "./model/submitData";
 
-interface IPostStateProps {
+interface IPostState {
     focus: boolean;
-
+    backgroundColor: string;
 }
 
-export class PostView extends React.Component<{}, {}> {
-    public colorScheme = {
+interface IPostProps {
+    value: string;
+    renderMergeButton: boolean;
+    handleOnChange(value: SemanticValue): void;
+    handleMerge(): void;
+}
+
+export class PostView extends React.Component<IPostProps, IPostState> {
+    public colorScheme : {[key: string] : string} = {
         negative: "lightpink",
         neutral: "lightgreen",
         positive: "lightblue",
@@ -26,15 +34,13 @@ export class PostView extends React.Component<{}, {}> {
         };
     }
 
-    public handleOnChange = (value) => {
-        this.setState({backgroundColor: this.colorScheme[value]});
-        this
-            .props
-            .onChange(value);
+    public handleOnChange = (value: any) => {
+        this.setState({backgroundColor: this.colorScheme[value] });
+        this.props.handleOnChange(value as SemanticValue);
     }
 
     public render() {
-        const divStyle = {
+        const divStyle : React.CSSProperties = {
             margin: "10px",
             border: this.state.focus ? "5px" : "3px",
             borderColor: this.state.focus ? "cyan" : "white",
@@ -46,7 +52,7 @@ export class PostView extends React.Component<{}, {}> {
             marginBottom: "0px",
             backgroundColor: this.state.backgroundColor,
         };
-        const mergeButtonStyle = {
+        const mergeButtonStyle : React.CSSProperties = {
             position: "absolute",
             bottom: "10px",
             right: "10px",

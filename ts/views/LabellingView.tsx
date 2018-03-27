@@ -4,7 +4,7 @@ import Button from "react-bootstrap/lib/Button";
 import {Redirect} from "react-router-dom";
 import {ILabellingController, LabellingController, Language} from "../controllers/LabellingController";
 import {MockLabellingController} from "../controllers/MockLabellingController";
-import {ISubmitData} from "../model/submitData";
+import {ISubmitData, SemanticValue} from "../model/submitData";
 import {PostView} from "../PostView";
 import {testData} from "../testData"; // comment out this line before build
 import {CreatePostViewModel, IPostViewModel} from "../viewModel/postViewModel";
@@ -45,12 +45,12 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
           return;
         }
       const posts = response;
+      posts.forEach((x) => {
+          this.submitData.updates[x._id] = "unassigned";
+      });
       this.setState({
         loading: false,
         postViewModels: posts.map((x) => CreatePostViewModel(x)),
-      });
-      posts.forEach((x) => {
-          this.submitData.updates[x._id] = "unassigned";
       });
     });
   }
@@ -68,10 +68,10 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
         {this.state.loading
           ? "Loading . . ."
           : posts.map((x, index) => <PostView
-                 key={index} value={x.value} color={this.colorScheme[x.belongs_to]}
+                 key={index} value={x.value}
                  renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
                  handleMerge={this.handleMerge(index)}
-                 onChange={this.handlePostSemanticValueChange(index)}
+                 handleOnChange={this.handlePostSemanticValueChange(index)}
             />)
         }
         <div style={{width: "400px", margin: "0 auto 10px"}}>
@@ -84,19 +84,19 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
     );
   }
 
-  public handlePostSemanticValueChange = (index) => (newValue) => {
-    this.state.posts[index].semantic_value = newValue;
+  public handlePostSemanticValueChange = (index: number) => (newValue: SemanticValue) => {
+    this.state.postViewModels[index].semantic_value = newValue;
   }
 
-  public handleMerge = (index) => () => {
-    const posts = this.state.posts;
+  public handleMerge = (index: number) => () => {
+    const posts = this.state.postViewModels;
     posts[index - 1].value = posts[index - 1].value + " " + posts[index].value;
     posts.splice(index, 1); // splice means remove
-    this.setState({posts});
+    this.setState({postViewModels: posts});
   }
 
   public handleSubmit = () => {
-    this.controller.submit(this.updates, (err, res) => {
+    this.controller.submit(this.submitData, (err, res) => {
       if (err) {
         alert("ERROR: " + err);
         return;

@@ -7,36 +7,25 @@ import ToggleButton from "react-bootstrap/lib/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/lib/ToggleButtonGroup";
 import { SemanticValue } from "./model/submitData";
 
-interface IPostState {
-    backgroundColor: string;
-}
-
 interface IPostProps {
     id: string;
     focus: boolean;
     value: string;
+    semanticValue : SemanticValue;
     renderMergeButton: boolean;
-    handleOnChange(value: SemanticValue): void;
+    handleOnChange(value: any): void;
     handleMerge(): void;
 }
 
-export class PostView extends React.Component<IPostProps, IPostState> {
+export class PostView extends React.Component<IPostProps, {}> {
     public colorScheme : {[key: string] : string} = {
         negative: "lightpink",
         neutral: "lightgreen",
         positive: "lightblue",
     };
 
-    constructor(props: any) {
+    constructor(props: IPostProps) {
         super(props);
-        this.state = {
-            backgroundColor: "",
-        };
-    }
-
-    public handleOnChange = (value: any) => {
-        this.setState({backgroundColor: this.colorScheme[value] });
-        this.props.handleOnChange(value as SemanticValue);
     }
 
     public render() {
@@ -49,7 +38,7 @@ export class PostView extends React.Component<IPostProps, IPostState> {
             borderRadius: "5px",
             padding: "10px 10px 10px 10px",
             marginBottom: "0px",
-            backgroundColor: this.state.backgroundColor,
+            backgroundColor: this.colorScheme[this.props.semanticValue],
         };
         const mergeButtonStyle : React.CSSProperties = {
             position: "absolute",
@@ -64,7 +53,7 @@ export class PostView extends React.Component<IPostProps, IPostState> {
                         {this.props.value}
                     </p>
                     <ButtonToolbar>
-                        <ToggleButtonGroup type="radio" name="options" onChange={this.handleOnChange} defaultValue={"unassigned"}>
+                        <ToggleButtonGroup type="radio" name="options" onChange={this.props.handleOnChange} defaultValue={"unassigned"}>
                             <ToggleButton value={"negative"}>(1) Negative 🙁</ToggleButton>
                             <ToggleButton value={"neutral"}>(2) Neutral</ToggleButton>
                             <ToggleButton value={"positive"}>(3) Positive 🙂</ToggleButton>
@@ -73,7 +62,7 @@ export class PostView extends React.Component<IPostProps, IPostState> {
                     </ButtonToolbar>
                     {this.props.renderMergeButton
                         ? <Button style={mergeButtonStyle} onClick={this.props.handleMerge}>
-                                Merge with previous sentence
+                                Merge with previous sentence (SPACEBAR)
                             </Button>
                         : null}
                 </Jumbotron>

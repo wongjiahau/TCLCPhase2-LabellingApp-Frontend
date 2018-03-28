@@ -32,20 +32,29 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
 
   public render() {
     const posts = this.state.postViewModels;
-    return (
-      <div>{
-        posts.map((x, index) => <PostView
+    const postViews : any[] = [];
+    let currentBelongsTo = posts[0].belongs_to;
+    posts.forEach((x, index) => {
+      if (x.belongs_to !== currentBelongsTo) {
+        currentBelongsTo = x.belongs_to;
+        postViews.push(<hr style={{borderColor: "black", borderWidth: "5px"}}/>);
+      }
+      postViews.push(
+        <PostView
           id={x._id}
+          belongsTo={x.belongs_to}
           semanticValue={x.semantic_value}
           key={index}
           value={x.value}
           focus={x.focus}
-          renderMergeButton={posts[index - 1]
-          ? (posts[index - 1].belongs_to === x.belongs_to)
-          : false}
+          renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
           handleMerge={this.handleMerge(index)}
-          handleOnChange={this.handlePostSemanticValueChange(index)}/>)
-      }</div>
+          handleOnChange={this.handlePostSemanticValueChange(index)}/>,
+      );
+    });
+
+    return (
+      <div>{postViews}</div>
     );
   }
 
@@ -78,6 +87,7 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
       "1"   , new SetSemanticValue("negative", -1),
       "2"   , new SetSemanticValue("neutral", -1),
       "3"   , new SetSemanticValue("positive", -1),
+      "4"   , new SetSemanticValue("unassigned", -1),
     ];
     for (let i = 0; i < keyBindings.length; i += 2) {
       const key = keyBindings[i];

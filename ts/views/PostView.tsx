@@ -8,13 +8,14 @@ import ToggleButtonGroup from "react-bootstrap/lib/ToggleButtonGroup";
 import { SemanticValue } from "../model/submitData";
 
 interface IPostProps {
-    id: string;
-    focus: boolean;
-    value: string;
-    semanticValue : SemanticValue;
-    renderMergeButton: boolean;
+    id:                   string;
+    belongsTo:            string;
+    focus:                boolean;
+    value:                string;
+    semanticValue:        SemanticValue;
+    renderMergeButton:    boolean;
     handleOnChange(value: any): void;
-    handleMerge(): void;
+    handleMerge():        void;
 }
 
 export class PostView extends React.Component<IPostProps, {}> {
@@ -47,28 +48,37 @@ export class PostView extends React.Component<IPostProps, {}> {
         };
 
         return (
-            <div id={this.props.id} style={divStyle}>
-                <Jumbotron style={jumbotronStyle}>
-                    <p>
-                        {this.props.value}
-                    </p>
-                    <ButtonToolbar>
-                        <ToggleButtonGroup type="radio" name="options"
-                                onChange={this.props.handleOnChange}
-                                value={this.props.semanticValue}>
-                            <ToggleButton value={"negative"}>(1) Negative 🙁</ToggleButton>
-                            <ToggleButton value={"neutral"}>(2) Neutral</ToggleButton>
-                            <ToggleButton value={"positive"}>(3) Positive 🙂</ToggleButton>
-                            <ToggleButton value={"unassigned"} checked={true}>Unknown �</ToggleButton>
-                        </ToggleButtonGroup>
-                    </ButtonToolbar>
-                    {this.props.renderMergeButton
-                        ? <Button style={mergeButtonStyle} onClick={this.props.handleMerge}>
-                                Merge with previous sentence (SPACEBAR)
-                            </Button>
-                        : null}
-                </Jumbotron>
-            </div>
+            <table style={{width: "100%"}}>
+                <tr>
+                    <td>
+                        <span style={{marginLeft: "5px"}}>{this.props.belongsTo}</span>
+                    </td>
+                    <td>
+                        <div id={this.props.id} style={divStyle}>
+                            <Jumbotron style={jumbotronStyle}>
+                                <p>
+                                    {this.props.value}
+                                </p>
+                                <ButtonToolbar>
+                                    <ToggleButtonGroup type="radio" name="options"
+                                            onChange={this.props.handleOnChange}
+                                            value={this.props.semanticValue}>
+                                        <ToggleButton value={"negative"}>(1) Negative 🙁</ToggleButton>
+                                        <ToggleButton value={"neutral"}>(2) Neutral</ToggleButton>
+                                        <ToggleButton value={"positive"}>(3) Positive 🙂</ToggleButton>
+                                        <ToggleButton value={"unassigned"} checked={true}>(4) Unknown �</ToggleButton>
+                                    </ToggleButtonGroup>
+                                </ButtonToolbar>
+                                {this.props.renderMergeButton
+                                    ? <Button style={mergeButtonStyle} onClick={this.props.handleMerge}>
+                                            Merge with previous sentence (SPACEBAR)
+                                        </Button>
+                                    : null}
+                            </Jumbotron>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         );
 
     }

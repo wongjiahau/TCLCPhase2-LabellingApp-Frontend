@@ -1,17 +1,16 @@
 import {clone} from "../libs/clone";
 import { IPostViewModel } from "./../viewModel/postViewModel";
+import { IPostListState, PostListStateAction } from "./postListStateAction";
 
-export function focusPrev(posts: IPostViewModel[]): IPostViewModel[] {
-    const newPosts = clone(posts);
-    for (let i = 0; i < newPosts.length; i++) {
-        const p = newPosts[i];
-        if (p.focus === true) {
-            if (i !== 0) {
-                p.focus = false;
-                newPosts[i - 1].focus = true;
-                break;
-            }
+export class FocusPrev extends PostListStateAction {
+    public run(): IPostListState {
+        const index = this.state.currentFocusIndex;
+        if (index === 0) {
+            return this.state;
         }
+        this.state.currentFocusIndex--;
+        this.state.postViewModels[index].focus = false;
+        this.state.postViewModels[index - 1].focus = true;
+        return this.state;
     }
-    return newPosts;
 }

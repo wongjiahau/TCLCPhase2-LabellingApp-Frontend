@@ -8,8 +8,8 @@ describe("setSemanticValue", () => {
     it("should change the semantic_value of the target postViewModel", () => {
         const state = getMockState();
         const targetIndex = 1;
-        const action = new SetSemanticValue(state, "positive", targetIndex);
-        const newState = action.run();
+        const action = new SetSemanticValue("positive", targetIndex);
+        const newState = action.run(state);
         expect(newState.postViewModels[targetIndex].semantic_value).to.eq("positive");
     });
 
@@ -17,8 +17,8 @@ describe("setSemanticValue", () => {
         const state = getMockState();
         const targetIndex = 1;
         expect(state.postViewModels[targetIndex].focus).to.eq(false);
-        const action = new SetSemanticValue(state, "positive", targetIndex);
-        const newState = action.run();
+        const action = new SetSemanticValue("positive", targetIndex);
+        const newState = action.run(state);
         expect(newState.postViewModels[targetIndex].focus).to.eq(true);
     });
 });

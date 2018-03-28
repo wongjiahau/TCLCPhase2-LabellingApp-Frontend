@@ -1,16 +1,16 @@
 import {clone} from "../libs/clone";
 import { IPostViewModel } from "./../viewModel/postViewModel";
-import { IPostListState, PostListStateAction } from "./postListStateAction";
+import { IPostListState, IPostListStateAction } from "./postListStateAction";
 
-export class FocusNext extends PostListStateAction {
-    public run(): IPostListState {
-        const index = this.state.currentFocusIndex;
-        if (index === this.state.postViewModels.length - 1) {
-            return this.state;
+export class FocusNext implements IPostListStateAction {
+    public run(state: IPostListState): IPostListState {
+        const index = state.currentFocusIndex;
+        if (index === state.postViewModels.length - 1) {
+            return state;
         }
-        this.state.currentFocusIndex++;
-        this.state.postViewModels[index].focus = false;
-        this.state.postViewModels[index + 1].focus = true;
-        return this.state;
+        state.currentFocusIndex++;
+        state.postViewModels[index].focus = false;
+        state.postViewModels[index + 1].focus = true;
+        return state;
     }
 }

@@ -5,7 +5,7 @@ import ButtonToolbar from "react-bootstrap/lib/ButtonToolbar";
 import Jumbotron from "react-bootstrap/lib/Jumbotron";
 import ToggleButton from "react-bootstrap/lib/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/lib/ToggleButtonGroup";
-import { SemanticValue } from "./model/submitData";
+import { SemanticValue } from "../model/submitData";
 
 interface IPostProps {
     id: string;
@@ -53,7 +53,9 @@ export class PostView extends React.Component<IPostProps, {}> {
                         {this.props.value}
                     </p>
                     <ButtonToolbar>
-                        <ToggleButtonGroup type="radio" name="options" onChange={this.props.handleOnChange} defaultValue={"unassigned"}>
+                        <ToggleButtonGroup type="radio" name="options"
+                                onChange={this.props.handleOnChange}
+                                value={this.props.semanticValue}>
                             <ToggleButton value={"negative"}>(1) Negative 🙁</ToggleButton>
                             <ToggleButton value={"neutral"}>(2) Neutral</ToggleButton>
                             <ToggleButton value={"positive"}>(3) Positive 🙂</ToggleButton>
@@ -72,11 +74,13 @@ export class PostView extends React.Component<IPostProps, {}> {
     }
 
     public componentDidUpdate() {
+        const BEHAVIOUR : "auto" | "instant" | "smooth" = "smooth";
+        const BLOCK : "center" | "end" | "start" = "center";
         if (this.props.focus) {
             const node = document.getElementById(this.props.id) as HTMLElement;
             node.scrollIntoView({
-                behavior: "smooth", // or "auto" or "instant"
-                block: "center", // or "end" or "start"
+                behavior: BEHAVIOUR,
+                block: BLOCK,
             });
         }
     }

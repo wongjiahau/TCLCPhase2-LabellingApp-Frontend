@@ -7,8 +7,12 @@ export class SetSemanticValue implements IPostListStateAction {
         private targetIndex: number) {}
 
     public run(state: IPostListState): IPostListState {
-        state.postViewModels[this.targetIndex].semantic_value = this.newSemanticValue;
-        state.postViewModels[this.targetIndex].focus = true;
+        const index =
+            this.targetIndex === -1 ?
+            state.currentFocusIndex :
+            this.targetIndex;
+        state.postViewModels[index].semantic_value = this.newSemanticValue;
+        state.postViewModels[index].focus = true;
         return state;
     }
 }

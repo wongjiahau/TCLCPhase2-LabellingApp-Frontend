@@ -21,4 +21,12 @@ describe("setSemanticValue", () => {
         const newState = action.run(state);
         expect(newState.postViewModels[targetIndex].focus).to.eq(true);
     });
+
+    it("should change the semantic_value of the focused index if targetIndex = -1", () => {
+        const state = getMockState();
+        const targetIndex = -1;
+        const action = new SetSemanticValue("positive", targetIndex);
+        const newState = action.run(state);
+        expect(newState.postViewModels[0].semantic_value).to.eq("positive");
+    });
 });

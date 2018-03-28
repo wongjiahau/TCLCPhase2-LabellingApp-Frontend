@@ -3,6 +3,7 @@ import { IAction } from "../actions/action";
 import { FocusNext } from "../actions/focusNext";
 import { FocusPrev } from "../actions/focusPrev";
 import {IPostListState} from "../actions/postListStateAction";
+import { SetSemanticValue } from "../actions/setSemanticValue";
 import { clone } from "../libs/clone";
 import {IPost} from "../model/post";
 import { SemanticValue } from "../model/submitData";
@@ -49,7 +50,6 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
   }
 
   public handlePostSemanticValueChange = (index: number) => (newValue: SemanticValue) => {
-    console.log(index);
     this.state.postViewModels[index].semantic_value = newValue;
     const id = this.state.postViewModels[index]._id;
     this.props.handlePostSemanticValueChange(id, newValue);
@@ -75,6 +75,9 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
     const keyBindings = [
       "up"  , new FocusPrev(),
       "down", new FocusNext(),
+      "1"   , new SetSemanticValue("negative", -1),
+      "2"   , new SetSemanticValue("neutral", -1),
+      "3"   , new SetSemanticValue("positive", -1),
     ];
     for (let i = 0; i < keyBindings.length; i += 2) {
       const key = keyBindings[i];

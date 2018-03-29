@@ -1,7 +1,7 @@
 import { clone } from "../libs/clone";
 import { IPost } from "../model/post";
 import {CreatePostViewModel, IPostViewModel} from "./../viewModel/postViewModel";
-import {IAction} from "./action";
+import {Action} from "./action";
 
 export interface IPostListState {
     postViewModels : IPostViewModel[];
@@ -17,5 +17,3 @@ export function CreatePostListState(posts: IPost[]): IPostListState {
     };
 
 }
-
-export interface IPostListStateAction extends IAction < IPostListState > {}

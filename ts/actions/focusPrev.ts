@@ -1,9 +1,10 @@
 import {clone} from "../libs/clone";
 import { IPostViewModel } from "./../viewModel/postViewModel";
-import { IPostListState, IPostListStateAction } from "./postListStateAction";
+import { Action } from "./action";
+import { IPostListState } from "./postListStateAction";
 
-export class FocusPrev implements IPostListStateAction {
-    public run(state: IPostListState): IPostListState {
+export class FocusPrev extends Action<IPostListState>  {
+    protected modifyState(state: IPostListState): IPostListState {
         const index = state.currentFocusIndex;
         if (index === 0) {
             return state;

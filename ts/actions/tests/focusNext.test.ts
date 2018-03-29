@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import { clone } from "../../libs/clone";
 import { CreatePostViewModel } from "../../viewModel/postViewModel";
 import { FocusNext } from "../focusNext";
 import { testData } from "./../../testData";

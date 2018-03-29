@@ -1,12 +1,14 @@
 import { SemanticValue } from "../model/submitData";
-import {IPostListState, IPostListStateAction} from "./postListStateAction";
+import { Action } from "./action";
+import {IPostListState } from "./postListStateAction";
 
-export class SetSemanticValue implements IPostListStateAction {
+export class SetSemanticValue extends Action<IPostListState> {
     public constructor(
         private newSemanticValue: SemanticValue,
-        private targetIndex: number) {}
+        private targetIndex: number,
+    ) { super(); }
 
-    public run(state: IPostListState): IPostListState {
+    protected modifyState(state: IPostListState): IPostListState {
         const index =
             this.targetIndex === -1 ?
             state.currentFocusIndex :
@@ -15,4 +17,5 @@ export class SetSemanticValue implements IPostListStateAction {
         state.postViewModels[index].focus = true;
         return state;
     }
+
 }

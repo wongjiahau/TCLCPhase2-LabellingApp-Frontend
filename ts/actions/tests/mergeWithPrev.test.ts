@@ -38,9 +38,23 @@ describe("MergeWithPrev", () => {
         const action = new MergeWithPrev(targetIndex);
         const newState = action.run(clone(originalState));
         expect(newState.currentFocusIndex).to.eq(targetIndex - 1);
+        expect(newState.postViewModels[newState.currentFocusIndex].focus).to.eq(true);
     });
 
     it("should set the semantic_value according to the bottom one", () => {
+        const state = getMockState();
+        state.postViewModels[2].semantic_value = "pending";
+        state.postViewModels[3].semantic_value = "negative";
+        const action = new MergeWithPrev(3);
+        const newState = action.run(state);
+        expect(newState.postViewModels[2].semantic_value).to.eq("negative");
+    });
 
+    it("should not merge 2 sentence that belongs_to different group", () => {
+        const state = getMockState();
+        expect(state.postViewModels[0].belongs_to)
+            .to.not.eq(state.postViewModels[1].belongs_to);
+        const newState = new MergeWithPrev(1).run(state);
+        expect(state).to.deep.eq(newState);
     });
 });

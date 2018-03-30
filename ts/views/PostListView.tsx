@@ -1,7 +1,8 @@
 import * as React from "react";
-import { IAction } from "../actions/action";
+import { Action } from "../actions/action";
 import { FocusNext } from "../actions/focusNext";
 import { FocusPrev } from "../actions/focusPrev";
+import { MergeWithPrev } from "../actions/mergeWithPrev";
 import {IPostListState} from "../actions/postListStateAction";
 import { SetSemanticValue } from "../actions/setSemanticValue";
 import { clone } from "../libs/clone";
@@ -59,22 +60,11 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
   }
 
   public handlePostSemanticValueChange = (index: number) => (newValue: SemanticValue) => {
-    this.state.postViewModels[index].semantic_value = newValue;
-    const id = this.state.postViewModels[index]._id;
-    this.props.handlePostSemanticValueChange(id, newValue);
+    this.updateState(new SetSemanticValue(newValue, index));
   }
 
   public handleMerge = (index: number) => () => {
-    const posts = this.state.postViewModels;
-    posts[index - 1].value = posts[index - 1].value + " " + posts[index].value;
-    posts.splice(index, 1); // splice means remove
-    this.setState({postViewModels: posts});
-    // this.props.handleMerge();
-  }
-
-  public updateState(action: IAction<IPostListState>): void {
-    const newState = action.run(clone(this.state));
-    this.setState(newState);
+    this.updateState(new MergeWithPrev(index));
   }
 
   public setupKeyBindings = () => {
@@ -82,20 +72,26 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
      * 2nd columns means action,
      */
     const keyBindings = [
-      "up"  , new FocusPrev(),
-      "down", new FocusNext(),
-      "1"   , new SetSemanticValue("negative", -1),
-      "2"   , new SetSemanticValue("neutral", -1),
-      "3"   , new SetSemanticValue("positive", -1),
-      "4"   , new SetSemanticValue("unassigned", -1),
+      "up"   , new FocusPrev(),
+      "down" , new FocusNext(),
+      "1"    , new SetSemanticValue("negative", -1),
+      "2"    , new SetSemanticValue("neutral", -1),
+      "3"    , new SetSemanticValue("positive", -1),
+      "4"    , new SetSemanticValue("unassigned", -1),
+      "space", new MergeWithPrev(-1),
     ];
     for (let i = 0; i < keyBindings.length; i += 2) {
       const key = keyBindings[i];
-      const action = keyBindings[i + 1] as IAction<IPostListState>;
+      const action = keyBindings[i + 1] as Action<IPostListState>;
       listener.simple_combo(key, () => {
         this.updateState(action);
       });
     }
+  }
+
+  public updateState(action: Action<IPostListState>): void {
+    const newState = action.run(clone(this.state));
+    this.setState(newState);
   }
 
 }

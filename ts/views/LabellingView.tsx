@@ -1,4 +1,3 @@
-import uniq from "lodash.uniq";
 import * as React from "react";
 import Button from "react-bootstrap/lib/Button";
 import {Redirect} from "react-router-dom";

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Action } from "../actions/action";
+import { FocusAt } from "../actions/focusAt";
 import { FocusNext } from "../actions/focusNext";
 import { FocusPrev } from "../actions/focusPrev";
 import { MergeWithPrev } from "../actions/mergeWithPrev";
@@ -50,7 +51,9 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
           focus={x.focus}
           renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
           handleMerge={this.handleMerge(index)}
-          handleOnChange={this.handlePostSemanticValueChange(index)}/>,
+          handleOnChange={this.handlePostSemanticValueChange(index)}
+          handleOnClick={this.focusAt(index)}
+          />,
       );
     });
 
@@ -65,6 +68,10 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
 
   public handleMerge = (index: number) => () => {
     this.updateState(new MergeWithPrev(index));
+  }
+
+  public focusAt = (index: number) => () => {
+    this.updateState(new FocusAt(index));
   }
 
   public setupKeyBindings = () => {

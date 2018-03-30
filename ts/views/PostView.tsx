@@ -16,6 +16,7 @@ interface IPostProps {
     renderMergeButton:    boolean;
     handleOnChange(value: any): void;
     handleMerge():        void;
+    handleOnClick():    void;
 }
 
 export class PostView extends React.Component<IPostProps, {}> {
@@ -54,7 +55,7 @@ export class PostView extends React.Component<IPostProps, {}> {
                         <span style={{marginLeft: "5px"}}>{this.props.belongsTo}</span>
                     </td>
                     <td>
-                        <div id={this.props.id} style={divStyle}>
+                        <div id={this.props.id} style={divStyle} onClick={this.props.handleOnClick}>
                             <Jumbotron style={jumbotronStyle}>
                                 <p>
                                     {this.props.value}

@@ -17,7 +17,7 @@ const listener = new window.keypress.Listener();
 interface IPostListViewProps {
   posts : IPost[];
   handlePostSemanticValueChange: (id: string, newSemanticValue: SemanticValue) => void;
-  handleMerge: (mergedIds: string[]) => void;
+  handleMerge: (absorber: string, beingAbsored: string) => void;
 }
 
 export class PostListView extends React.Component < IPostListViewProps, IPostListState > {
@@ -63,10 +63,18 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
   }
 
   public handlePostSemanticValueChange = (index: number) => (newValue: SemanticValue) => {
+    this.props.handlePostSemanticValueChange(
+      this.state.postViewModels[index]._id,
+      newValue,
+    );
     this.updateState(new SetSemanticValue(newValue, index));
   }
 
   public handleMerge = (index: number) => () => {
+    this.props.handleMerge(
+      this.state.postViewModels[index - 1]._id,
+      this.state.postViewModels[index]._id,
+    );
     this.updateState(new MergeWithPrev(index));
   }
 
@@ -75,7 +83,8 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
   }
 
   public setupKeyBindings = () => {
-    /** 1st column means key,
+    /**  EXPLANATION
+     * 1st column means key,
      * 2nd columns means action,
      */
     const keyBindings = [

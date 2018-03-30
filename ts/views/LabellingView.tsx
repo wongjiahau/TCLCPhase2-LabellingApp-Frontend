@@ -2,24 +2,21 @@ import uniq from "lodash.uniq";
 import * as React from "react";
 import Button from "react-bootstrap/lib/Button";
 import {Redirect} from "react-router-dom";
-import {focusNext} from "../actions/focusNext";
-import {focusPrev} from "../actions/focusPrev";
 import {ILabellingController, LabellingController, Language} from "../controllers/LabellingController";
 import {MockLabellingController} from "../controllers/MockLabellingController";
+import { IPost } from "../model/post";
 import {ISubmitData, SemanticValue} from "../model/submitData";
-import {PostView} from "../PostView";
 import {testData} from "../testData"; // comment out this line before build
 import {CreatePostViewModel, IPostViewModel} from "../viewModel/postViewModel";
+import {PostListView} from "./PostListView";
 import {ValidateSession} from "./ValidateSession";
-
-const listener = new window.keypress.Listener();
 
 const DEBUGGING = true;
 interface ILabellingViewState {
   loading: boolean;
   done: boolean;
   filename: string;
-  postViewModels: IPostViewModel[];
+  posts: IPost[];
 }
 
 interface ILabellingViewProps {
@@ -43,7 +40,7 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
       loading: true,
       done: false,
       filename: "",
-      postViewModels: [],
+      posts: [],
     };
     this.requestDataFromServer();
   }
@@ -58,27 +55,10 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
       posts.forEach((x) => {
           this.submitData.updates[x._id] = "unassigned";
       });
-      const postViewModels = posts.map((x) => CreatePostViewModel(x));
-      postViewModels[0].focus = true;
       this.setState({
         filename: response.filename,
         loading: false,
-        postViewModels,
-      });
-      this.setupKeyBindings();
-    });
-  }
-
-  public setupKeyBindings = () => {
-    listener.simple_combo("down", () => {
-      this.setState({
-        postViewModels: focusNext(this.state.postViewModels),
-      });
-    });
-
-    listener.simple_combo("up", () => {
-      this.setState({
-        postViewModels: focusPrev(this.state.postViewModels),
+        posts,
       });
     });
   }
@@ -87,7 +67,6 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
     if (this.state.done) {
       return <Redirect to="/con"/>;
     }
-    const posts = this.state.postViewModels;
     return (
       <div className="LabellingView">
         <span style={{position: "absolute", right: "5px", top: "5px"}}>
@@ -97,15 +76,11 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
         <h1 style={{marginLeft: "50px", marginTop: "30px"}}>Label the semantic value of the following posts.</h1>
         <br/>
         {this.state.loading
-          ? "Loading . . ."
-          : posts.map((x, index) => <PostView
-                  id={x._id}
-                  key={index} value={x.value}
-                  focus={x.focus}
-                  renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
-                  handleMerge={this.handleMerge(index)}
-                  handleOnChange={this.handlePostSemanticValueChange(index)}
-            />)
+          ? "Loading . . ." :
+          <PostListView posts={this.state.posts}
+            handlePostSemanticValueChange={this.handlePostSemanticValueChange}
+            handleMerge={this.handleMerge}
+          />
         }
         <div style={{width: "400px", margin: "0 auto 10px"}}>
           <Button onClick={this.handleSubmit} bsStyle="primary" bsSize="large" block>
@@ -117,17 +92,12 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
     );
   }
 
-  public handlePostSemanticValueChange = (index: number) => (newValue: SemanticValue) => {
-    this.state.postViewModels[index].semantic_value = newValue;
-    this.submitData.updates[this.state.postViewModels[index]._id] = newValue;
-    console.log(this.submitData);
+  public handlePostSemanticValueChange = (id: string, newValue: SemanticValue) => {
+    this.submitData.updates[id] = newValue;
   }
 
-  public handleMerge = (index: number) => () => {
-    const posts = this.state.postViewModels;
-    posts[index - 1].value = posts[index - 1].value + " " + posts[index].value;
-    posts.splice(index, 1); // splice means remove
-    this.setState({postViewModels: posts});
+  public handleMerge = (absorber: string, beingAbsorbed: string) => {
+    this.submitData.merges.push({ absorber, beingAbsorbed });
   }
 
   public handleSubmit = () => {

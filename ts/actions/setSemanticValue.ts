@@ -1,5 +1,6 @@
 import { SemanticValue } from "../model/submitData";
 import { Action } from "./action";
+import { FocusAt } from "./focusAt";
 import {IPostListState } from "./postListStateAction";
 
 export class SetSemanticValue extends Action<IPostListState> {
@@ -14,8 +15,7 @@ export class SetSemanticValue extends Action<IPostListState> {
             state.currentFocusIndex :
             this.targetIndex;
         state.postViewModels[index].semantic_value = this.newSemanticValue;
-        state.postViewModels[index].focus = true;
-        return state;
+        return new FocusAt(index).run(state);
     }
 
 }

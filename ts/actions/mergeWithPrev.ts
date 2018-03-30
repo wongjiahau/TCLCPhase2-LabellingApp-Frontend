@@ -1,4 +1,5 @@
 import { Action } from "./action";
+import { FocusAt } from "./focusAt";
 import { IPostListState } from "./postListStateAction";
 
 export class MergeWithPrev extends Action<IPostListState> {
@@ -26,8 +27,7 @@ export class MergeWithPrev extends Action<IPostListState> {
 
         absorber.value += " " + absorbee.value;
         absorber.semantic_value = absorbee.semantic_value;
-        absorber.focus = true;
-        state.currentFocusIndex = index - 1;
-        return state;
+
+        return new FocusAt(index - 1).run(state);
     }
 }

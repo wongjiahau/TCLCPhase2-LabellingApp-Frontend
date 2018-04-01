@@ -7,8 +7,9 @@ import { MergeWithPrev } from "../actions/mergeWithPrev";
 import {IPostListState} from "../actions/postListStateAction";
 import { SetSemanticValue } from "../actions/setSemanticValue";
 import { clone } from "../libs/clone";
+import {extractSubmitData} from "../model/extractSubmitData";
 import {IPost} from "../model/post";
-import { SemanticValue } from "../model/submitData";
+import { ISubmitData, SemanticValue } from "../model/submitData";
 import {CreatePostViewModel, IPostViewModel} from "../viewModel/postViewModel";
 import {PostView} from "./PostView";
 
@@ -16,8 +17,7 @@ const listener = new window.keypress.Listener();
 
 interface IPostListViewProps {
   posts : IPost[];
-  handlePostSemanticValueChange: (id: string, newSemanticValue: SemanticValue) => void;
-  handleMerge: (absorber: string, beingAbsored: string) => void;
+  updateSubmitData: (_: ISubmitData) => void;
 }
 
 export class PostListView extends React.Component < IPostListViewProps, IPostListState > {
@@ -63,18 +63,10 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
   }
 
   public handlePostSemanticValueChange = (index: number) => (newValue: SemanticValue) => {
-    this.props.handlePostSemanticValueChange(
-      this.state.postViewModels[index]._id,
-      newValue,
-    );
     this.updateState(new SetSemanticValue(newValue, index));
   }
 
   public handleMerge = (index: number) => () => {
-    this.props.handleMerge(
-      this.state.postViewModels[index - 1]._id,
-      this.state.postViewModels[index]._id,
-    );
     this.updateState(new MergeWithPrev(index));
   }
 
@@ -108,6 +100,7 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
   public updateState(action: Action<IPostListState>): void {
     const newState = action.run(clone(this.state));
     this.setState(newState);
+    this.props.updateSubmitData(extractSubmitData(this.state.postViewModels));
   }
 
 }

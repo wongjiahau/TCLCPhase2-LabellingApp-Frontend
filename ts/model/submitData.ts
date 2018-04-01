@@ -2,7 +2,7 @@ export type SemanticValue = "pending" | "unassigned" | "positive" | "negative" |
 
 export interface IMerge {
     absorber: string;
-    beingAbsorbed: string;
+    absorbees: string[];
 }
 
 export interface ISubmitData {

@@ -10,7 +10,7 @@ import {CreatePostViewModel, IPostViewModel} from "../viewModel/postViewModel";
 import {PostListView} from "./PostListView";
 import {ValidateSession} from "./ValidateSession";
 
-const DEBUGGING = false;
+const DEBUGGING = true;
 interface ILabellingViewState {
   loading: boolean;
   done: boolean;
@@ -77,8 +77,7 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
         {this.state.loading
           ? "Loading . . ." :
           <PostListView posts={this.state.posts}
-            handlePostSemanticValueChange={this.handlePostSemanticValueChange}
-            handleMerge={this.handleMerge}
+            updateSubmitData={this.updateSubmitData}
           />
         }
         <div style={{width: "400px", margin: "0 auto 10px"}}>
@@ -91,16 +90,14 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
     );
   }
 
-  public handlePostSemanticValueChange = (id: string, newValue: SemanticValue) => {
-    this.submitData.updates[id] = newValue;
-  }
-
-  public handleMerge = (absorber: string, beingAbsorbed: string) => {
-    this.submitData.merges.push({ absorber, beingAbsorbed });
+  public updateSubmitData = (newData: ISubmitData) => {
+    this.submitData = newData;
+    console.log(this.submitData);
   }
 
   public handleSubmit = () => {
     this.controller.submit(this.submitData, (err, res) => {
+      console.log(this.submitData);
       if (err) {
         alert("ERROR: " + err);
         return;

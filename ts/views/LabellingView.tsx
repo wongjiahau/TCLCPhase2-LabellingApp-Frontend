@@ -10,7 +10,7 @@ import {CreatePostViewModel, IPostViewModel} from "../viewModel/postViewModel";
 import {PostListView} from "./PostListView";
 import {ValidateSession} from "./ValidateSession";
 
-const DEBUGGING = true;
+const DEBUGGING = false;
 interface ILabellingViewState {
   loading: boolean;
   done: boolean;

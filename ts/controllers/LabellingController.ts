@@ -21,7 +21,7 @@ export class LabellingController extends Controller implements ILabellingControl
     public getPosts(callback : (error: any, response: IRequestData) => void) {
         this.request
             .get(`${this.url}getPosts${this.language}`)
-            .use(this.nocache) // Prevents caching of *only* this request
+            // .use(this.nocache) // Prevents caching of *only* this request
             .end((err: any, res: any) => {
                 callback(err, res.body);
             });

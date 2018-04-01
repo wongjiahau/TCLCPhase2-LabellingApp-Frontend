@@ -10,6 +10,7 @@ export class MockLabellingController implements ILabellingController {
             callback(null, {filename: "20170808_carinet_2.csv", posts: testData});
         }, 500);
     }
+
     public submit(submitData: ISubmitData, callback: (error: any, response: any) => void): void {
         throw new Error("Method not implemented.");
     }

@@ -57,4 +57,24 @@ describe("MergeWithPrev", () => {
         const newState = new MergeWithPrev(1).run(state);
         expect(state).to.deep.eq(newState);
     });
+
+    it("should set the absorbees property", () => {
+        const state = getMockState();
+        const newState = new MergeWithPrev(3).run(state);
+        expect(newState.postViewModels[2].absorbees)
+            .to.deep.eq([
+                state.postViewModels[3]._id
+            ]);
+    });
+
+    it("should set the absorbees property to have the absorbees of absorbees", () => {
+        const originalState = getMockState();
+        const newState1 = new MergeWithPrev(4).run(originalState);
+        const newState2 = new MergeWithPrev(3).run(newState1);
+        expect(newState2.postViewModels[2].absorbees)
+            .to.deep.eq([
+                originalState.postViewModels[3]._id,
+                originalState.postViewModels[4]._id
+            ]);
+    });
 });

@@ -27,7 +27,10 @@ export class MergeWithPrev extends Action<IPostListState> {
 
         absorber.value += " " + absorbee.value;
         absorber.semantic_value = absorbee.semantic_value;
-
+        absorber.absorbees.push(absorbee._id);
+        absorbee.absorbees.forEach((id) => {
+            absorber.absorbees.push(id);
+        });
         return new FocusAt(index - 1).run(state);
     }
 }

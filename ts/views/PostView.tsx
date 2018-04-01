@@ -16,7 +16,6 @@ interface IPostProps {
     renderMergeButton:    boolean;
     handleOnChange(value: any): void;
     handleMerge():        void;
-    handleOnClick():    void;
 }
 
 export class PostView extends React.Component<IPostProps, {}> {

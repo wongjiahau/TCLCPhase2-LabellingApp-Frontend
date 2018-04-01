@@ -52,7 +52,6 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
           renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
           handleMerge={this.handleMerge(index)}
           handleOnChange={this.handlePostSemanticValueChange(index)}
-          handleOnClick={this.focusAt(index)}
           />,
       );
     });
@@ -67,6 +66,7 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
   }
 
   public handleMerge = (index: number) => () => {
+    console.log(index);
     this.updateState(new MergeWithPrev(index));
   }
 
@@ -98,9 +98,9 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
   }
 
   public updateState(action: Action<IPostListState>): void {
-    const newState = action.run(clone(this.state));
+    const newState = action.run(this.state);
     this.setState(newState);
-    this.props.updateSubmitData(extractSubmitData(this.state.postViewModels));
+    this.props.updateSubmitData(extractSubmitData(newState.postViewModels));
   }
 
 }

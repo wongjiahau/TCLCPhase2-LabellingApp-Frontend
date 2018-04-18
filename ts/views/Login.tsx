@@ -6,7 +6,13 @@ import Center from "react-center";
 import {Redirect} from "react-router-dom";
 import shajs from "sha.js";
 
-export class Login extends React.Component {
+interface ILoginState {
+    done: boolean;
+    id: string;
+    password: string;
+}
+
+export class Login extends React.Component<{}, ILoginState> {
     constructor(props) {
 
         super(props);

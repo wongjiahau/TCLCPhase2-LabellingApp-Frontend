@@ -12,9 +12,9 @@ export const ChooseLanguage = () => (
             word2="English"
             link2="/english"
         />
-        <Center>
+        {/* <Center>
             <Link to="/progress">See progress</Link>
-        </Center>
+        </Center> */}
     </div>
 
 );

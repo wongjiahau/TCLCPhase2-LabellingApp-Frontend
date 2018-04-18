@@ -10,7 +10,7 @@ import {CreatePostViewModel, IPostViewModel} from "../viewModel/postViewModel";
 import {PostListView} from "./PostListView";
 import {ValidateSession} from "./ValidateSession";
 
-const DEBUGGING = true;
+const DEBUGGING = 0;
 interface ILabellingViewState {
   loading: boolean;
   done: boolean;
@@ -95,8 +95,8 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
   }
 
   public handleSubmit = () => {
+    console.log(this.submitData);
     this.controller.submit(this.submitData, (err, res) => {
-      console.log(this.submitData);
       if (err) {
         alert("ERROR: " + err);
         return;

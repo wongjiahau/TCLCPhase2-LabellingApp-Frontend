@@ -4,6 +4,15 @@ import { MergeWithPrev } from "../mergeWithPrev";
 import {getMockState} from "./getMockState";
 
 describe("MergeWithPrev", () => {
+    it("should not throw error if currentFocusIndex = 0", () => {
+        const originalState = getMockState();
+        expect(originalState.currentFocusIndex).to.eq(0);
+        expect(() => {
+            const action = new MergeWithPrev(-1);
+            const newState = action.run(clone(originalState));
+        }).to.not.throw();
+    });
+
     it("should merge 2 post into 1 post", () => {
         const originalState = getMockState();
         const targetIndex = 3;

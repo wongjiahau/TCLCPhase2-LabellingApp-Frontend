@@ -18,6 +18,10 @@ export class MergeWithPrev extends Action<IPostListState> {
             state.currentFocusIndex :
             this.targetIndex;
 
+        if (index === 0) {
+            return state;
+        }
+
         if (state.postViewModels[index].belongs_to !== state.postViewModels[index - 1].belongs_to) {
             return state;
         }

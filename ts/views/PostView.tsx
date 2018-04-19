@@ -11,11 +11,13 @@ interface IPostProps {
     id:                   string;
     belongsTo:            string;
     focus:                boolean;
+    isMalay:              boolean;
     value:                string;
     semanticValue:        SemanticValue;
     renderMergeButton:    boolean;
-    handleOnChange(value: any): void;
-    handleMerge():        void;
+    handleSemanticValueOnChange(value: any): void;
+    handleMerge(): void;
+    handleToggleIsMalay(value: any): void;
 }
 
 export class PostView extends React.Component<IPostProps, {}> {
@@ -61,12 +63,17 @@ export class PostView extends React.Component<IPostProps, {}> {
                                 </p>
                                 <ButtonToolbar>
                                     <ToggleButtonGroup type="radio" name="options"
-                                            onChange={this.props.handleOnChange}
+                                            onChange={this.props.handleSemanticValueOnChange}
                                             value={this.props.semanticValue}>
                                         <ToggleButton value={"negative"}>(1) Negative 🙁</ToggleButton>
                                         <ToggleButton value={"neutral"}>(2) Neutral</ToggleButton>
                                         <ToggleButton value={"positive"}>(3) Positive 🙂</ToggleButton>
                                         <ToggleButton value={"unassigned"} checked={true}>(4) Unknown �</ToggleButton>
+                                    </ToggleButtonGroup>
+                                    <ToggleButtonGroup type="checkbox" name="language" style={{marginLeft: "10px"}}
+                                        value={this.props.isMalay ? "malay" : null}
+                                        onChange={this.props.handleToggleIsMalay}>
+                                        <ToggleButton value="malay">(m) Malay</ToggleButton>
                                     </ToggleButtonGroup>
                                 </ButtonToolbar>
                                 {this.props.renderMergeButton

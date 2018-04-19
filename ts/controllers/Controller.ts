@@ -3,8 +3,10 @@ export class Controller {
     protected request: any;
     protected url: string;
     constructor() {
-        this.url = "http://35.197.130.54/";
-        // this.url = "http://localhost/";
+        const DEBUGGING = true;
+        this.url =  DEBUGGING ?
+                    "http://localhost/" :
+                    "http://35.197.130.54/";
         this.request = request;
     }
 }

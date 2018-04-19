@@ -6,6 +6,7 @@ import { FocusPrev } from "../actions/focusPrev";
 import { MergeWithPrev } from "../actions/mergeWithPrev";
 import {IPostListState} from "../actions/postListStateAction";
 import { SetSemanticValue } from "../actions/setSemanticValue";
+import { ToggleIsMalay } from "../actions/toggleIsMalay";
 import { clone } from "../libs/clone";
 import {extractSubmitData} from "../model/extractSubmitData";
 import {IPost} from "../model/post";
@@ -33,10 +34,10 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
   }
 
   public render() {
-    const posts = this.state.postViewModels;
+    const postViewModels = this.state.postViewModels;
     const postViews : any[] = [];
-    let currentBelongsTo = posts[0].belongs_to;
-    posts.forEach((x, index) => {
+    let currentBelongsTo = postViewModels[0].belongs_to;
+    postViewModels.forEach((x, index) => {
       if (x.belongs_to !== currentBelongsTo) {
         currentBelongsTo = x.belongs_to;
         postViews.push(<hr style={{borderColor: "black", borderWidth: "5px"}}/>);
@@ -49,9 +50,11 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
           key={index}
           value={x.value}
           focus={x.focus}
-          renderMergeButton={posts[index - 1] ? (posts[index - 1].belongs_to === x.belongs_to) : false}
+          isMalay={x.isMalay}
+          renderMergeButton={postViewModels[index - 1] ? (postViewModels[index - 1].belongs_to === x.belongs_to) : false}
           handleMerge={this.handleMerge(index)}
-          handleOnChange={this.handlePostSemanticValueChange(index)}
+          handleSemanticValueOnChange={this.handlePostSemanticValueChange(index)}
+          handleToggleIsMalay={this.handleToggleIsMalay(index)}
           />,
       );
     });
@@ -74,6 +77,10 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
     this.updateState(new FocusAt(index));
   }
 
+  public handleToggleIsMalay = (index: number) => () => {
+    this.updateState(new ToggleIsMalay(index));
+  }
+
   public setupKeyBindings = () => {
     /**  EXPLANATION
      * 1st column means key,
@@ -87,6 +94,7 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
       "3"    , new SetSemanticValue("positive", -1),
       "4"    , new SetSemanticValue("unassigned", -1),
       "space", new MergeWithPrev(-1),
+      "m"    , new ToggleIsMalay(-1)
     ];
     for (let i = 0; i < keyBindings.length; i += 2) {
       const key = keyBindings[i];

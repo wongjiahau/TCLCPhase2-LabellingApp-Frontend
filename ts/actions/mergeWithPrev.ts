@@ -22,7 +22,7 @@ export class MergeWithPrev extends Action<IPostListState> {
             return state;
         }
 
-        const absorbee = state.postViewModels.splice(index, 1)[0];
+        const absorbee = state.postViewModels[index];
         const absorber = state.postViewModels[index - 1];
 
         absorber.value += " " + absorbee.value;
@@ -31,6 +31,8 @@ export class MergeWithPrev extends Action<IPostListState> {
         absorbee.absorbees.forEach((id) => {
             absorber.absorbees.push(id);
         });
+
+        state.postViewModels[index].isAbsorbed = true;
         return new FocusAt(index - 1).run(state);
     }
 }

@@ -15,12 +15,21 @@ describe("MergeWithPrev", () => {
         expect(newState.postViewModels[2].value).to.eq(expected);
     });
 
-    it("should reduce the original length by 1", () => {
+    it("should retain the original length", () => {
         const state = getMockState();
         expect(state.postViewModels).to.have.lengthOf(20);
         const action = new MergeWithPrev(3);
         const newState = action.run(state);
-        expect(newState.postViewModels).to.have.lengthOf(19);
+        expect(newState.postViewModels).to.have.lengthOf(20);
+    });
+
+    it("should set the isAbsorbed of target postViewModel to true ", () => {
+        const state = getMockState();
+        const targetIndex = 3;
+        expect(state.postViewModels[targetIndex].isAbsorbed).to.eq(false);
+        const action = new MergeWithPrev(3);
+        const newState = action.run(state);
+        expect(newState.postViewModels[targetIndex].isAbsorbed).to.eq(true);
     });
 
     it("should merge the current focused postViewModel if targetIndex = -1", () => {

@@ -42,21 +42,23 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
         currentBelongsTo = x.belongs_to;
         postViews.push(<hr style={{borderColor: "black", borderWidth: "5px"}}/>);
       }
-      postViews.push(
-        <PostView
-          id={x._id}
-          belongsTo={x.belongs_to}
-          semanticValue={x.semantic_value}
-          key={index}
-          value={x.value}
-          focus={x.focus}
-          isMalay={x.isMalay}
-          renderMergeButton={postViewModels[index - 1] ? (postViewModels[index - 1].belongs_to === x.belongs_to) : false}
-          handleMerge={this.handleMerge(index)}
-          handleSemanticValueOnChange={this.handlePostSemanticValueChange(index)}
-          handleToggleIsMalay={this.handleToggleIsMalay(index)}
-          />,
-      );
+      if (!x.isAbsorbed) {
+        postViews.push(
+          <PostView
+            id={x._id}
+            belongsTo={x.belongs_to}
+            semanticValue={x.semantic_value}
+            key={index}
+            value={x.value}
+            focus={x.focus}
+            isMalay={x.isMalay}
+            renderMergeButton={postViewModels[index - 1] ? (postViewModels[index - 1].belongs_to === x.belongs_to) : false}
+            handleMerge={this.handleMerge(index)}
+            handleSemanticValueOnChange={this.handlePostSemanticValueChange(index)}
+            handleToggleIsMalay={this.handleToggleIsMalay(index)}
+            />,
+        );
+      }
     });
 
     return (

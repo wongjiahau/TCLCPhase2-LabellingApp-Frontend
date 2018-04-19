@@ -8,4 +8,5 @@ export interface IMerge {
 export interface ISubmitData {
     updates: {[key: string] : SemanticValue};
     merges:  IMerge[];
+    malayPosts: string[]; /*IDs of post that are identified as malay*/
 }

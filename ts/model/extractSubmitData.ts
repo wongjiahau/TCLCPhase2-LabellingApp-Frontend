@@ -19,6 +19,6 @@ export function extractSubmitData(postViewModels: IPostViewModel[]): ISubmitData
             malayPosts.push(p._id);
         }
     });
-    return { updates, merges };
+    return { updates, merges, malayPosts };
 
 }

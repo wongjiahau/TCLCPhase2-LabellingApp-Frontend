@@ -23,3 +23,11 @@ npm run start
     ]
 }
 ```
+
+## How to deploy this app to surge?
+Before that, set `DEBUGGING = false` in `Controller.ts`.  
+And also, set the correct IP address in `Controller.ts`.  
+Because Google Compute Engine (GCE) will have different IP address everytime it is restarted.
+```
+./deploy.sh
+```

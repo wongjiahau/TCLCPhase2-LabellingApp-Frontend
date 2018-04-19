@@ -96,7 +96,7 @@ export class PostListView extends React.Component < IPostListViewProps, IPostLis
       "3"    , new SetSemanticValue("positive", -1),
       "4"    , new SetSemanticValue("unassigned", -1),
       "space", new MergeWithPrev(-1),
-      "m"    , new ToggleIsMalay(-1)
+      "x"    , new ToggleIsMalay(-1)
     ];
     for (let i = 0; i < keyBindings.length; i += 2) {
       const key = keyBindings[i];

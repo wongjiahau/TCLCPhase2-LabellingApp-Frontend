@@ -73,7 +73,7 @@ export class PostView extends React.Component<IPostProps, {}> {
                                     <ToggleButtonGroup type="checkbox" name="language" style={{marginLeft: "10px"}}
                                         value={this.props.isMalay ? "malay" : null}
                                         onChange={this.props.handleToggleIsMalay}>
-                                        <ToggleButton value="malay">(m) Malay</ToggleButton>
+                                        <ToggleButton value="malay">(x) Malay</ToggleButton>
                                     </ToggleButtonGroup>
                                 </ButtonToolbar>
                                 {this.props.renderMergeButton

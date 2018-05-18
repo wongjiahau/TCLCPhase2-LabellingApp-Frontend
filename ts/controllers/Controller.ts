@@ -5,7 +5,7 @@ export class Controller {
     constructor() {
         const DEBUGGING = true;
         this.url =  DEBUGGING ?
-                    "http://localhost/" :
+                    "http://localhost:3000/" :
                     "http://35.187.254.103/";
         this.request = request;
     }

@@ -92,6 +92,7 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
 
   public updateSubmitData = (newData: ISubmitData) => {
     this.submitData = newData;
+    console.log(newData);
   }
 
   public handleSubmit = () => {

@@ -7,7 +7,7 @@
 /coverage
 
 # production
-/build
+# /build
 
 # transpiled
 /src/js

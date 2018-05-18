@@ -6,7 +6,7 @@ export class Controller {
         const DEBUGGING = true;
         this.url =  DEBUGGING ?
                     "http://localhost/" :
-                    "http://35.197.130.54/";
+                    "http://35.187.254.103/";
         this.request = request;
     }
 }

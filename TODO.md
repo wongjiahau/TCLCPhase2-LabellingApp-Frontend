@@ -20,7 +20,7 @@
 
 10-[X]-Make all the posts appear with the unclassified option highlighted by default. User needs to use keys: 1, 2 and 3 to select either negative, neutral or positive
 
-11-[]-Each post has merge button, which is selected by clicking on it or pressing the space bar. When this is selected, the current highlighted post and all previous unclassified posts are immediately merged into a single entity. This action is currently undoable.
+11-[X]-Each post has merge button, which is selected by clicking on it or pressing the space bar. When this is selected, the current highlighted post and all previous unclassified posts are immediately merged into a single entity. This action is currently undoable.
 
 12-[X]-The name of the file will appear at the upper right hand corner of the screen (which currently accommodates max 15 posts). Only posts associated with that particular file will appear on the screen, which means there can be less than 15 at the end of the file. For user to select explicitly file name to classify, will be a later feature.
 

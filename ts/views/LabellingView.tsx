@@ -55,7 +55,7 @@ export class LabellingView extends React.Component<ILabellingViewProps, ILabelli
           this.submitData.updates[x._id] = "unassigned";
       });
       this.setState({
-        filename: response.filename,
+        filename: response.posts[0].origin,
         loading: false,
         posts,
       });

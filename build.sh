@@ -1,4 +1,6 @@
 #!/bin/bash
+./transpile nowatch
+
 cp ./src/views/LabellingView.js ./temp.js
 sed -i '/testData/d' ./src/views/LabellingView.js
 sed -i 's/const DEBUGGING = true/const DEBUGGING = false/g' ./src/views/LabellingView.js

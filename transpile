@@ -1,3 +1,9 @@
 #!/bin/bash
 rm -rf ./src/js
+
+if [[ $1 -eq "nowatch" ]]; then
+    tsc
+    exit 0
+fi
+
 tsc --watch
